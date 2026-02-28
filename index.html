@@ -1,0 +1,1151 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Таня и Гоша · Приглашение на свадьбу</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tenor Sans', sans-serif;
+            background-color: #fef7ed;
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+        body::-webkit-scrollbar-track {
+            background: #fef7ed;
+        }
+        body::-webkit-scrollbar-thumb {
+            background: #d40100;
+            border-radius: 4px;
+        }
+
+        .slide {
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1.5rem 4rem;
+            position: relative;
+            background-color: #fef7ed;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .slide.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .wave-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .wave-bottom svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: #d40100;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+        }
+
+        .content {
+            max-width: 1200px;
+            width: 100%;
+            padding: 1.5rem;
+            z-index: 2;
+        }
+
+        h1, h2 {
+            font-family: 'Tenor Sans', sans-serif;
+            font-weight: 600;
+        }
+        h1 { font-size: clamp(3rem, 10vw, 8rem); }
+        h2 { font-size: clamp(2.5rem, 8vw, 3rem); margin-bottom: 2rem; }
+        p { font-size: 1.3rem; line-height: 1.6;}
+
+        /* Фото в стиле Polaroid */
+        .polaroid-frame {
+            background: #e3e3e7;
+            padding: 10px 10px 30px 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            display: inline-block;
+            transform: rotate(var(--rotation, 0deg));
+            transition: transform 0.3s ease;
+            margin: 15px;
+            border: 1px solid #f0f0f0;
+        }
+
+        .polaroid-frame:hover {
+            transform: rotate(0deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Индивидуальные повороты через data-атрибуты или разные классы */
+        .polaroid-1 { --rotation: 5deg; }
+        .polaroid-2 { --rotation: 5deg; }
+        .polaroid-3 { --rotation: -5deg; }
+
+        /* Две фотографии Polaroid */
+        .two-photos {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0 1rem;
+            flex-wrap: wrap;
+        } 
+
+        /* Две колонки для слайда с местом */
+        .two-columns-venue {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+        .venue-image {
+            flex: 1;
+            min-width: 280px;
+            height: 300px;
+            background: #d4a08c;
+            border-radius: 0;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+        }
+        .venue-info {
+            flex: 1;
+            min-width: 280px;
+            text-align: center;
+        }
+        @media (max-width: 700px) {
+            .two-columns-venue { flex-direction: column; }
+            .venue-info { text-align: center; }
+        }
+
+        /* Календарь прямоугольный */
+.may-calendar-flat {
+    background: #fef7ed;
+    padding: 1.5rem;
+    display: inline-block;
+    width: 100%;
+    max-width: 380px;
+    border: 2px solid;
+    box-sizing: border-box; /* Добавлено */
+}
+
+.cal-header-flat {
+    font-size: 2rem;
+    font-family: 'Tenor Sans', sans-serif; 
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.cal-weekdays-flat {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-weight: 600; 
+    margin-bottom: 0.8rem;
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 0 4px; /* Добавлено */
+}
+
+.cal-days-flat {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0px 4px; /* Увеличенные отступы: 8px между неделями, 4px между днями */
+}
+
+/* Стили для всех span внутри cal-days-flat */
+.cal-days-flat span {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fef7ed;
+    font-size: 1.2rem;
+    position: relative; /* Для позиционирования псевдоэлемента */
+}
+
+/* Стили для дня с сердечком */
+
+        .cal-days-flat span.heart-day {
+            color: #ffffff;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" opacity="1.0"><path fill="%23d40100" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 80% 80%;
+        }
+
+        /* Две колонки для слайда с календарем */
+        .two-columns-cal {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+/* Улучшенные стили для двух колонок на втором слайде */
+.two-columns-cal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+}
+
+.left-text {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.right-calendar {
+    flex: 1;
+    min-width: 400px;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 900px) {
+    .two-columns-cal {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .left-text {
+        text-align: center !important;
+        max-width: 100%;
+    }
+    
+    .left-text p {
+        text-align: center;
+    }
+}
+
+
+        /* Тайминг с линиями (исправленный) */
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0 4rem;
+    position: relative;
+    padding-top: 20px;
+}
+
+/* Линия через псевдоэлемент родителя */
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 85px;  /* позиция линии */
+    left: 50px;
+    width: calc(100% - 70px);
+    height: 2px;
+    background-color: #000000;  /* или любой другой цвет */
+    z-index: 1;
+}
+
+.time-block {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.big-time {
+    font-size: 3rem;
+    font-weight: 700;  
+    margin-bottom: 1.5rem;
+}
+
+.label {
+    font-size: 2.1rem;  
+}
+/* Мобильная версия */
+@media (max-width: 468px) {
+    .timeline {
+        flex-direction: column;  /* вертикальное расположение */
+        gap: 2rem;  /* отступ между блоками */
+        padding-left: 0px;  /* отступ слева для линии */
+        position: relative;
+    }
+    
+    /* Вертикальная линия */
+    .timeline::before {
+        top: 0;
+        left: 50%;  /* позиция вертикальной линии */
+        width: 2px;  /* теперь это ширина, т.к. линия вертикальная */
+        height: 100%;  /* на всю высоту */
+        background-color: #000000;
+    }
+    
+    .time-block {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        width: 100%;
+        position: relative;
+    }
+    
+ 
+    
+    .big-time {
+        margin-bottom: 0;
+        font-size: 2.5rem;  /* чуть меньше на мобильных */
+        order: 2;  /* время справа */
+    }
+    
+    .label {
+        font-size: 1.5rem;  /* чуть меньше на мобильных */
+        order: 1;  /* текст слева */
+    }
+}
+        /* Кнопки в едином стиле */
+        .btn, .telegram-btn, .btn-submit {
+            background: #d40100;
+            color: white;
+            padding: 1rem 2.8rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            display: inline-block;
+            margin: 1rem 0;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Tenor Sans', sans-serif;
+            font-weight: 500;
+        }
+        .btn:hover, .telegram-btn:hover, .btn-submit:hover {
+            background: #a20100;
+        }
+
+        /* Слайдер пожеланий */
+/* Слайдер пожеланий */
+.wishes-slider {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto 1rem;
+    overflow: hidden;
+}
+
+.wishes-container {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.wish-item {
+    min-width: 100%;
+    padding: 2rem;
+    text-align: center;
+    font-size: 1.2rem;
+    font-family: 'Tenor Sans', sans-serif; 
+    box-sizing: border-box;
+}
+
+.slider-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.slider-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #000;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+ 
+.slider-counter {
+    font-size: 1.4rem;
+    font-family: 'Tenor Sans', sans-serif;
+    color: #000;
+    min-width: 50px;
+    text-align: center;
+}
+
+        /* Контакт (текст без рамки над кнопкой) */
+        /* .contact-info {
+            text-align: center;
+            margin: 2rem 0 1rem;
+        }
+        .contact-text {
+            font-size: 1.5rem; 
+            margin-bottom: 2rem;
+        } */
+.contact-info { 
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;  
+} 
+
+.contact-phone {
+    display: block;
+    font-size: 2rem; 
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    font-family: 'Tenor Sans', sans-serif;
+}
+ 
+
+.contact-description {
+    font-size: 1.1rem; 
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    font-family: 'Tenor Sans', sans-serif;
+}
+ 
+        /* Анкета */
+        /* .rsvp {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .field {
+            margin-bottom: 1.8rem;
+        }
+        .field label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500; 
+        }
+        .field input, .field select {
+            width: 100%;
+            padding: 14px 22px;
+            border-radius: 5px;
+            border: 1px solid #dbb2a2;
+            font-size: 1.1rem;
+        }
+        .radio-flex {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap; 
+            padding: 1.2rem;
+            border-radius: 60px; 
+        } */
+.rsvp {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.field {
+    margin-bottom: 2rem;
+}
+
+.field > label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 500; 
+    font-size: 1.1rem;
+    color: #000;
+}
+
+.field input[type="text"] {
+    width: 100%;
+    padding: 14px 22px;
+    border-radius: 8px;
+    border: 1px solid #000;
+    font-size: 1.1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+    background-color: #fef7ed;
+}
+
+.field input[type="text"]:focus {
+    outline: none;
+    border-color: #000; 
+}
+
+/* Вертикальные радио-кнопки и чекбоксы */
+.radio-vertical, .checkbox-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem 0;
+}
+
+/* Стили для лейблов */
+.radio-label, .checkbox-label {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    font-weight: normal !important;
+    margin-bottom: 0 !important;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px 0;
+}
+
+/* Скрываем стандартные радио и чекбоксы */
+.radio-label input[type="radio"],
+.checkbox-label input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Создаем кастомные элементы */
+.radio-label .custom-radio,
+.checkbox-label .custom-checkbox {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #000;
+    border-radius: 4px; /* квадратные для чекбоксов, можно сделать круглыми для радио */
+    background-color: #fef7ed;
+    position: relative;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+/* Для радио можно сделать круглыми, если хотите отличать */
+.radio-label .custom-radio {
+    border-radius: 4px; /* круглые для радио */
+}
+
+
+/* Состояние когда выбран */
+.radio-label input[type="radio"]:checked + .custom-radio,
+.checkbox-label input[type="checkbox"]:checked + .custom-checkbox {
+    background-color: #000;
+    border-color: #000;
+} 
+
+/* Добавляем точку для радио */
+.radio-label input[type="radio"]:checked + .custom-radio::after { 
+    display: none;
+}
+
+/* Стили для выключенного состояния */
+.radio-label input[type="radio"]:disabled + .custom-radio,
+.checkbox-label input[type="checkbox"]:disabled + .custom-checkbox {
+    background-color: #fef7ed;
+    border-color: #000;
+}
+
+/* Добавить к существующим стилям */
+
+.other-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin: 0.5rem 0;
+}
+
+.other-input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 6px;
+    border: 1px solid #dbb2a2;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: all 0.3s;
+    display: none; /* Скрыто по умолчанию */
+}
+
+.other-input:focus {
+    outline: none;
+    border-color: #d40100;
+}
+
+/* Стили для активного состояния */
+.other-input.active {
+    display: block;
+    border-color: #d40100;
+    background-color: white;
+}
+
+        .color-dots {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        .dot {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+        .dot1 { background: #A3B7A2; }
+        .dot2 { background: #C58C8C ; }
+        .dot3 { background: #8FA8C2 ; }
+        .dot4 { background: #D6D6D6 ; }
+        .dot5 { background: #2F3E5C ; }
+
+        .slide:last-child .wave-bottom {
+            display: none;
+        }
+        .preserve-whitespace {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Имена, фото, дата (Polaroid) -->
+    <section class="slide">
+        <div class="content" style="text-align: center;">
+            <h2>
+                7 мая, 2026
+            </h2>
+            <h1 style="line-height: 0.8; color: #d40100;">
+                <span style="display: block;">Таня</span>
+                <span style="display: block;">& Гоша</span>
+            </h1>              
+            <div class="polaroid-frame polaroid-1">
+                <!-- <div class="photo-round"></div> -->
+                <img src="src/TanyaGosha.jpg" alt="Таня и Гоша" style="width: 100%; height: 400px; object-fit: cover; display: block;">
+            </div>
+        </div>
+        <div class="wave-bottom">
+            <svg preserveAspectRatio="none" viewBox="0 0 1440 80">
+                <path d="M0,40 Q60,20 120,40 T240,40 T360,40 T480,40 T600,40 T720,40 T840,40 T960,40 T1080,40 T1200,40 T1320,40 T1440,40" stroke="#d40100"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 2. Приглашение + календарь (исправленная версия) -->
+    <section class="slide">
+        <div class="content">
+            <div class="two-columns-cal">
+                <div class="left-text" style="text-align: center; max-width: 500px;">
+                    <h2>
+                        <span style="display: block;">Дорогие</span>
+                        <span style="display: block;">друзья и родные!</span>
+                    </h2>
+                    <p style="font-size: 1.8rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                        Ну вот и всё, дождались! :) Мы решили пожениться и хотим видеть вас в качестве того, кто разделит с нами этот долгожданный день!
+                    </p>              
+                    <h2>
+                        7 мая, 2026 | 17:00
+                    </h2>
+                </div>
+                <div class="right-calendar" style="text-align: center;">
+                    <div class="may-calendar-flat">
+                        <div class="cal-header-flat">Май 2026</div>
+                        <div class="cal-weekdays-flat">
+                            <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span>
+                        </div>
+                        <div class="cal-days-flat">
+                            <span></span><span></span><span></span><span></span><span>1</span><span>2</span><span>3</span>
+                            <span>4</span><span>5</span><span>6</span><span class="heart-day">7</span><span>8</span><span>9</span><span>10</span>
+                            <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span>
+                            <span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span>
+                            <span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span><span>31</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wave-bottom">
+            <svg preserveAspectRatio="none" viewBox="0 0 1440 80">
+                <path d="M0,40 Q120,10 240,40 T480,40 T720,40 T960,40 T1200,40 T1440,40" stroke="#d40100"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 3. Место с картинкой -->
+    <section class="slide">
+        <div class="content">
+            <div class="two-columns-venue">
+                <div class="venue-info">
+                    <h2>Место регистрации</h2>
+                    <div class="polaroid-frame" style="width: 100%; max-width: 400px; padding: 10px 10px 30px 10px;">
+                        <img src="src/zags.jpg" alt="Дворец бракосочетания №2" style="width: 100%; height: 300px; object-fit: cover; display: block;">
+                    </div> 
+                    <p style="font-size: 2rem;">Дворец бракосочетания №2</p>
+                    <p style="font-size: 1.4rem;">ул. Фурштатская 52, Санкт-Петербург</p>
+                    <a href="https://yandex.ru/maps/-/CPqm6Q1l" target="_blank" class="btn">Открыть карту</a>
+                </div>
+                <div class="venue-info">
+                    <h2>Место банкета</h2>
+                    <div class="polaroid-frame" style="width: 100%; max-width: 400px; padding: 10px 10px 30px 10px;">
+                        <img src="src/mircuccio.JPG" alt="Ресторан «Mircuccio Osteria»" style="width: 100%; height: 300px; object-fit: cover; display: block;">
+                    </div> 
+                    <p style="font-size: 2rem;">Ресторан «Mircuccio Osteria»</p>
+                    <p style="font-size: 1.4rem;">ул. Моисеенко, 27, Санкт-Петербург</p>
+                    <a href="https://yandex.ru/maps/-/CPqmbY3a" target="_blank" class="btn">Открыть карту</a>
+                </div>
+                <!-- <div class="venue-info">
+                    <h2>Место проведения</h2>
+                    <p style="font-size: 2rem;">Будет уточнено позже.</p>
+                </div> -->
+            </div>
+        </div>
+        <div class="wave-bottom">
+            <svg preserveAspectRatio="none" viewBox="0 0 1440 80">
+                <path d="M0,40 Q90,70 180,40 T360,40 T540,40 T720,40 T900,40 T1080,40 T1260,40 T1440,40" stroke="#d40100"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 4. Тайминг с восстановленным шрифтом -->
+    <section class="slide">
+        <div class="content" style="text-align: center;">
+            <h2>Тайминг</h2>
+            <div class="timeline">
+                <div class="time-block">
+                    <div class="big-time">17:00</div>
+                    <div class="label">Церемония регистрации</div>
+                </div>
+                <div class="time-block">
+                    <div class="big-time">18:00</div>
+                    <div class="label">Банкет</div>
+                </div>
+                <div class="time-block">
+                    <div class="big-time">23:00</div>
+                    <div class="label">Завершение вечера</div>
+                </div>
+            </div>
+        </div>
+        <div class="wave-bottom">
+            <svg preserveAspectRatio="none" viewBox="0 0 1440 80">
+                <path d="M0,40 Q180,0 360,40 T720,40 T1080,40 T1440,40" stroke="#d40100"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 5. Дресс-код -->
+    <section class="slide">
+        <div class="content" style="text-align: center;">
+            <h2>Дресс-код</h2> 
+            <div class="color-dots">
+                <div class="dot dot1"></div>
+                <div class="dot dot2"></div>
+                <div class="dot dot3"></div>
+                <div class="dot dot4"></div>
+                <div class="dot dot5"></div>
+            </div>
+            <p class="preserve-whitespace">
+Будем рады видеть вас в элегантных образах в весенней палитре:
+шалфей, пыльная роза, дымчато-голубой, светло-серый и глубокий синий.
+
+Допустимы аккуратные акценты:
+приглушённый винный, серебристые детали, сатин и лёгкий блеск, природные оттенки в аксессуарах.
+
+Просим по возможности избегать оттенков белого, слишком ярких и неоновых цветов, а также образов в стиле total black.
+            </p>
+        </div>
+        <div class="wave-bottom">
+            <svg preserveAspectRatio="none" viewBox="0 0 1440 80">
+                <path d="M0,40 Q120,70 240,40 T480,40 T720,40 T960,40 T1200,40 T1440,40" stroke="#d40100"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 7. Слайдер пожеланий -->
+    <section class="slide">
+        <div class="content" style="text-align: center;">
+            <h2>Пожелания</h2>
+            <div class="wishes-slider">
+                <div class="wishes-container" id="wishSlider"> 
+                </div>
+            </div>
+            
+            <div class="slider-controls">
+                <button class="slider-btn slider-left" onclick="prevWish()">←</button>
+                <div class="slider-counter" id="wishCounter">1/3</div>
+                <button class="slider-btn slider-right" onclick="nextWish()">→</button>
+            </div>
+        </div>
+        <div class="wave-bottom">
+            <svg preserveAspectRatio="none" viewBox="0 0 1440 80">
+                <path d="M0,40 Q90,30 180,40 T360,40 T540,40 T720,40 T900,40 T1080,40 T1260,40 T1440,40" stroke="#d40100"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 8. Контакт (текст над кнопкой) -->
+    <section class="slide">
+        <div class="content" style="text-align: center;">
+            <h2>Контакты</h2>
+            <div class="contact-info"> 
+                <p class="contact-description">По всем вопросам, связанным с мероприятием, напишите нам!</p>
+                <a href="tel:79268887788" class="contact-phone">+7 (926) 888-77-88</a>
+                <a href="https://t.me/+79991234567" class="telegram-btn" target="_blank">
+                    Написать в Telegram
+                </a>
+            </div>
+        </div>
+        <div class="wave-bottom">
+            <svg preserveAspectRatio="none" viewBox="0 0 1440 80">
+                <path d="M0,40 Q200,0 400,40 T800,40 T1200,40 T1440,40" stroke="#d40100"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 9. Анкета -->
+    <section class="slide">
+        <div class="content">
+            <h2 style="text-align: center;">Анкета гостя</h2>
+            <div class="rsvp">
+                <p style="font-size: 1.5rem; line-height: 1.0; margin-bottom: 1.5rem;">
+                    Пожалуйста, подтвердите своё присутствие на мероприятии до 9 марта 2026
+                </p>
+                
+                <div class="field">
+                    <label>Ваше имя</label>
+                    <input type="text" id="guestName" placeholder="Имя и фамилия">
+                </div>
+                
+                <div class="field">
+                    <label>Планируете ли Вы присутствовать?</label>
+                    <div class="radio-vertical">
+                        <label class="radio-label">
+                            <input type="radio" name="attend" value="yes">
+                            <span class="custom-radio"></span>
+                            Да, с удовольствием
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="attend" value="no">
+                            <span class="custom-radio"></span>
+                            Не смогу
+                        </label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Ваши предпочтения в напитках (можно выбрать несколько)</label>
+                    <div class="checkbox-vertical" id="alcoholChoice">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="alc" value="champagne">
+                            <span class="custom-checkbox"></span>
+                            Шампанское
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="alc" value="white wine">
+                            <span class="custom-checkbox"></span>
+                            Белое вино
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="alc" value="red wine">
+                            <span class="custom-checkbox"></span>
+                            Красное вино
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="alc" value="vodka">
+                            <span class="custom-checkbox"></span>
+                            Водка
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="alc" value="whiskey">
+                            <span class="custom-checkbox"></span>
+                            Виски
+                        </label>
+                        <div class="other-wrapper">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="alc" value="other" id="otherCheckbox">
+                                <span class="custom-checkbox"></span>
+                                Другое
+                            </label>
+                            <input type="text" id="otherInput" class="other-input" placeholder="Укажите ваш вариант">
+                        </div>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="alc" value="none">
+                            <span class="custom-checkbox"></span>
+                            Не пью алкоголь
+                        </label>
+                    </div>
+                </div>
+                
+                <button class="btn-submit" style="width: 100%;" onclick="saveGuestResponse()">Подтвердить</button>
+            </div>
+        </div>
+        <div class="wave-bottom">
+            <svg preserveAspectRatio="none" viewBox="0 0 1440 80">
+                <path d="M0,40 Q100,60 200,40 T400,40 T600,40 T800,40 T1000,40 T1200,40 T1400,40" stroke="#d40100"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 10. Скорой встречи с Polaroid фото -->
+    <section class="slide">
+        <div class="content" style="text-align: center;">
+            <!-- <h1>❤️</h1> --> 
+            <h2 style="line-height: 1;">
+                <span style="display: block;">До скорой встречи!</span>
+                <span style="display: block;">С любовью</span>
+            </h2>
+            <h1 style="line-height: 0.8; color: #d40100;">
+                <span style="display: block;">Таня</span>
+                <span style="display: block;">& Гоша</span>
+            </h1>
+            <div class="two-photos">
+                <div class="polaroid-frame polaroid-2"> 
+                    <img src="src/TanyaYoung.jpg" alt="Таня в детстве" style="width: 100%; height: 500px; object-fit: cover; display: block;">
+                </div>
+                <div class="polaroid-frame polaroid-3"> 
+                    <img src="src/GoshaYoung.jpg" alt="Гоша в детстве" style="width: 100%; height: 500px; object-fit: cover; display: block;">
+                </div>
+            </div>              
+            <h2>
+                7 мая, 2026 | 17:00
+            </h2>
+        </div>
+    </section>
+
+    <script> 
+        // Слайдер пожеланий
+        let currentWish = 1; // Начинаем с 1, потому что добавили клон в начало
+        let wishes = [];
+        const wishSlider = document.getElementById('wishSlider');
+        const wishCounter = document.getElementById('wishCounter');
+
+        // Оригинальные пожелания
+        const wishesData = [
+            'Будем очень признательны, если Вы воздержитесь от криков «Горько». Ведь поцелуй – это знак выражения чувств, и он не может быть по заказу.',
+            'Мы с теплотой относимся к детям любого возраста. Но для свадьбы выбрали формат 18+.',
+            'Пожалуйста, не дарите нам цветы! Мы не успеем насладиться их красотой и ароматом. Если хотите подарить нам ценный и нужный подарок, мы будем очень благодарны за вклад в бюджет нашей молодой семьи.'
+        ];
+
+        // Создаем элементы с клонами для бесконечной прокрутки
+        function initSlider() {
+            // Очищаем контейнер
+            wishSlider.innerHTML = '';
+            
+            // Добавляем клон последнего элемента в начало
+            const firstClone = document.createElement('div');
+            firstClone.className = 'wish-item';
+            firstClone.textContent = wishesData[wishesData.length - 1];
+            wishSlider.appendChild(firstClone);
+            
+            // Добавляем оригинальные элементы
+            wishesData.forEach(text => {
+                const div = document.createElement('div');
+                div.className = 'wish-item';
+                div.textContent = text;
+                wishSlider.appendChild(div);
+            });
+            
+            // Добавляем клон первого элемента в конец
+            const lastClone = document.createElement('div');
+            lastClone.className = 'wish-item';
+            lastClone.textContent = wishesData[0];
+            wishSlider.appendChild(lastClone);
+            
+            // Обновляем ссылки на элементы
+            wishes = document.querySelectorAll('.wish-item');
+            
+            // Устанавливаем начальную позицию на первом оригинальном элементе
+            currentWish = 1;
+            updateWishSlider(false);
+        }
+
+        function updateWishSlider(animate = true) {
+            if (!animate) {
+                wishSlider.style.transition = 'none';
+                wishSlider.style.transform = `translateX(-${currentWish * 100}%)`;
+                setTimeout(() => {
+                    wishSlider.style.transition = 'transform 0.3s ease';
+                }, 50);
+            } else {
+                wishSlider.style.transform = `translateX(-${currentWish * 100}%)`;
+            }
+            
+            // Обновляем счетчик (вычитаем 1 из-за клона в начале)
+            const originalIndex = currentWish - 1;
+            if (originalIndex >= 0 && originalIndex < wishesData.length) {
+                wishCounter.textContent = `${originalIndex + 1}/${wishesData.length}`;
+            }
+        }
+
+        window.nextWish = function() {
+            currentWish++;
+            updateWishSlider(true);
+            
+            // Если дошли до последнего клона, мгновенно перескакиваем на первый оригинальный
+            if (currentWish === wishes.length - 1) {
+                setTimeout(() => {
+                    currentWish = 1;
+                    updateWishSlider(false);
+                }, 300);
+            }
+        }
+
+        window.prevWish = function() {
+            currentWish--;
+            updateWishSlider(true);
+            
+            // Если дошли до первого клона, мгновенно перескакиваем на последний оригинальный
+            if (currentWish === 0) {
+                setTimeout(() => {
+                    currentWish = wishes.length - 2;
+                    updateWishSlider(false);
+                }, 300);
+            }
+        }
+
+        // Инициализация
+        initSlider();
+
+        // Сохранение ответов гостя
+// Добавить после инициализации или в начало скрипта
+document.addEventListener('DOMContentLoaded', function() {
+    const otherCheckbox = document.getElementById('otherCheckbox');
+    const otherInput = document.getElementById('otherInput');
+    
+    otherCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            otherInput.classList.add('active');
+            otherInput.focus();
+        } else {
+            otherInput.classList.remove('active');
+            otherInput.value = ''; // очищаем поле при снятии чекбокса
+        }
+    });
+});
+
+window.saveGuestResponse = function() {
+    // Получаем имя
+    const name = document.getElementById('guestName').value.trim();
+    
+    // Получаем ответ о присутствии
+    const attendRadio = document.querySelector('input[name="attend"]:checked');
+    const attend = attendRadio ? attendRadio.value : null;
+    
+    // Получаем все выбранные напитки
+    const alcoholCheckboxes = document.querySelectorAll('input[name="alc"]:checked');
+    const alcoholPreferences = [];
+    
+    alcoholCheckboxes.forEach(cb => {
+        if (cb.value === 'other') {
+            const otherValue = document.getElementById('otherInput').value.trim();
+            if (otherValue) {
+                alcoholPreferences.push(`Другое: ${otherValue}`);
+            }
+        } else {
+            alcoholPreferences.push(cb.value);
+        }
+    });
+    
+    // Валидация
+    if (!name) {
+        alert('Пожалуйста, введите имя');
+        return;
+    }
+    
+    if (!attend) {
+        alert('Пожалуйста, укажите, планируете ли Вы присутствовать');
+        return;
+    }
+    
+    // Если человек придет, проверяем что выбрал хотя бы один напиток
+    if (attend === 'yes' && alcoholPreferences.length === 0) {
+        alert('Пожалуйста, укажите ваши предпочтения по напиткам');
+        return;
+    }
+    
+    // Проверяем что если выбран вариант "Другое", то поле заполнено
+    const otherCheckbox = document.getElementById('otherCheckbox');
+    const otherInput = document.getElementById('otherInput');
+    if (otherCheckbox.checked && !otherInput.value.trim()) {
+        alert('Пожалуйста, укажите ваш вариант напитка');
+        otherInput.focus();
+        return;
+    }
+
+    // Создаем объект с данными
+    const guestData = {
+        name: name,
+        attend: attend,
+        alcohol: alcoholPreferences,
+        timestamp: new Date().toLocaleString('ru-RU')
+    };
+    
+    // Сохраняем в localStorage
+    const existing = localStorage.getItem('weddingGuests');
+    const guests = existing ? JSON.parse(existing) : [];
+    guests.push(guestData);
+    localStorage.setItem('weddingGuests', JSON.stringify(guests));
+    
+    // Показываем персонализированное сообщение
+    let attendMessage = '';
+    if (attend === 'yes') {
+        attendMessage = 'Ждём вас!';
+    } else if (attend === 'no') {
+        attendMessage = 'Будем скучать!';
+    } else {
+        attendMessage = 'Будем надеяться на ваше присутствие!';
+    }
+    
+    alert(`Спасибо, ${name}! ${attendMessage} ❤️`);
+    
+    // Очищаем форму
+    document.getElementById('guestName').value = '';
+    document.querySelectorAll('input[name="attend"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="alc"]').forEach(r => r.checked = false);
+    document.getElementById('otherInput').value = '';
+    document.getElementById('otherInput').classList.remove('active');
+};
+
+        // Intersection Observer
+        const slides = document.querySelectorAll('.slide');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        slides.forEach(slide => observer.observe(slide));
+    </script>
+</body>
+</html>

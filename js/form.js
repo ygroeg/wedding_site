@@ -14,7 +14,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    // Проверяем, нужно ли прокрутить к анкете
+    if (window.location.hash === '#rsvp') {
+        setTimeout(scrollToRsvp, 500); // Небольшая задержка для загрузки страницы
+    }
 });
+
+// Функция прокрутки к анкете
+window.scrollToRsvp = function() {
+    const rsvpSection = document.querySelector('.slide:has(.rsvp)');
+    if (rsvpSection) {
+        rsvpSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
 
 window.saveGuestResponse = function() {
     // Получаем имя
@@ -79,24 +92,6 @@ window.saveGuestResponse = function() {
     guests.push(guestData);
     localStorage.setItem('weddingGuests', JSON.stringify(guests));
     
-    // Показываем персонализированное сообщение
-    let attendMessage = '';
-    if (attend === 'yes') {
-        attendMessage = 'Ждём вас!';
-    } else if (attend === 'no') {
-        attendMessage = 'Будем скучать!';
-    } else {
-        attendMessage = 'Будем надеяться на ваше присутствие!';
-    }
-    
-    alert(`Спасибо, ${name}! ${attendMessage} ❤️`);
-    
-    // Очищаем форму
-    document.getElementById('guestName').value = '';
-    document.querySelectorAll('input[name="attend"]').forEach(r => r.checked = false);
-    document.querySelectorAll('input[name="alc"]').forEach(r => r.checked = false);
-    if (document.getElementById('otherInput')) {
-        document.getElementById('otherInput').value = '';
-        document.getElementById('otherInput').classList.remove('active');
-    }
+    // Перенаправляем на страницу благодарности
+    window.location.href = 'thankyou.html';
 };

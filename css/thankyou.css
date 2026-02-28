@@ -1,51 +1,55 @@
-﻿.thankyou-content {
-    max-width: 800px;
+﻿@import 'style.css';
+
+.thankyou-content {
+    max-width: var(--content-max);
     margin: 0 auto;
     text-align: center;
-    padding: 2rem;
+    padding: var(--spacing-lg);
 }
 
 .guest-summary {
     background: rgba(255, 255, 255, 0.7);
-    border: 2px solid #d40100;
+    border: 2px solid var(--primary);
     border-radius: 20px;
-    padding: 2rem;
-    margin: 2rem 0;
+    padding: var(--spacing-lg);
+    margin: var(--spacing-lg) 0;
     text-align: left;
 }
 
 .summary-title {
-    font-size: 1.8rem;
-    color: #d40100;
-    margin-bottom: 1.5rem;
+    font-size: var(--text-xl);
+    color: var(--primary);
+    margin-bottom: var(--spacing-md);
     text-align: center;
 }
 
 .summary-item {
     display: flex;
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    border-bottom: 1px dashed #d40100;
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-xs);
+    border-bottom: 1px dashed var(--primary);
 }
 
 .summary-label {
     font-weight: bold;
     min-width: 150px;
     color: #333;
+    font-size: var(--text-base);
 }
 
 .summary-value {
-    color: #000;
+    color: var(--text);
     flex: 1;
+    font-size: var(--text-base);
 }
 
-/* Debug section - will be removed later */
+/* Debug section - будет удалено */
 .debug-section {
     background: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 10px;
-    padding: 1.5rem;
-    margin: 2rem 0;
+    padding: var(--spacing-md);
+    margin: var(--spacing-lg) 0;
     text-align: left;
     position: relative;
 }
@@ -56,35 +60,34 @@
     left: 20px;
     background: #f0f0f0;
     padding: 0 10px;
-    font-size: 0.8rem;
+    font-size: var(--text-xs);
     color: #666;
-    font-family: 'Tenor Sans', sans-serif;
 }
 
 .debug-content {
     white-space: pre-wrap;
     word-break: break-word;
     font-family: monospace;
-    font-size: 0.9rem;
+    font-size: var(--text-sm);
     margin: 0;
 }
 
 .button-group {
     display: flex;
-    gap: 1rem;
+    gap: var(--spacing-sm);
     justify-content: center;
     flex-wrap: wrap;
-    margin: 2rem 0;
+    margin: var(--spacing-lg) 0;
 }
 
 .note {
-    font-size: 1rem;
-    color: #000;
-    margin-top: 1rem;
+    font-size: var(--text-sm);
+    color: var(--text);
+    margin-top: var(--spacing-sm);
     font-style: italic;
 }
 
-/* Mobile styles */
+/* Мобильные стили */
 @media (max-width: 600px) {
     .summary-item {
         flex-direction: column;
@@ -92,14 +95,10 @@
     
     .summary-label {
         min-width: auto;
-        margin-bottom: 0.3rem;
+        margin-bottom: var(--spacing-xs);
     }
     
     .button-group {
         flex-direction: column;
-    }
-    
-    .btn {
-        width: 100%;
     }
 }

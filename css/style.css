@@ -4,23 +4,59 @@
     box-sizing: border-box;
 }
 
+:root {
+    /* Цветовая палитра */
+    --primary: #d40100;
+    --primary-dark: #a20100;
+    --bg: #fef7ed;
+    --text: #000000;
+    --border: #000000;
+    
+    /* Единые размеры текста */
+    --text-xs: 0.8rem;
+    --text-sm: 1rem;
+    --text-base: 1.2rem;
+    --text-lg: 1.5rem;
+    --text-xl: 2rem;
+    --text-2xl: 2.5rem;
+    --text-3xl: 3rem;
+    --text-4xl: 4rem;
+    --text-8xl: 8rem;
+    
+    /* Отступы */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    --spacing-2xl: 4rem;
+    
+    /* Ширины */
+    --container-max: 1200px;
+    --content-max: 800px;
+    --form-max: 600px;
+    --calendar-max: 380px;
+    --photo-max: 400px;
+}
+
 body {
     font-family: 'Tenor Sans', sans-serif;
-    background-color: #fef7ed;
+    background-color: var(--bg);
     height: 100vh;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
+    color: var(--text);
 }
 
 body::-webkit-scrollbar {
     width: 8px;
 }
 body::-webkit-scrollbar-track {
-    background: #fef7ed;
+    background: var(--bg);
 }
 body::-webkit-scrollbar-thumb {
-    background: #d40100;
+    background: var(--primary);
     border-radius: 4px;
 }
 
@@ -33,9 +69,9 @@ body::-webkit-scrollbar-thumb {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2rem 1.5rem 4rem;
+    padding: var(--spacing-lg) var(--spacing-md) var(--spacing-2xl);
     position: relative;
-    background-color: #fef7ed;
+    background-color: var(--bg);
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s ease, transform 0.8s ease;
@@ -61,25 +97,39 @@ body::-webkit-scrollbar-thumb {
     width: 100%;
     height: 100%;
     fill: none;
-    stroke: #d40100;
+    stroke: var(--primary);
     stroke-width: 2.5;
     stroke-linecap: round;
 }
 
 .content {
-    max-width: 1200px;
+    max-width: var(--container-max);
     width: 100%;
-    padding: 1.5rem;
+    padding: var(--spacing-md);
     z-index: 2;
 }
 
-h1, h2 {
-    font-family: 'Tenor Sans', sans-serif;
+/* Унифицированные заголовки */
+h1 {
+    font-size: clamp(var(--text-3xl), 10vw, var(--text-8xl));
     font-weight: 600;
+    line-height: 0.9;
+    margin-bottom: var(--spacing-lg);
 }
-h1 { font-size: clamp(3rem, 10vw, 8rem); }
-h2 { font-size: clamp(2.5rem, 8vw, 3rem); margin-bottom: 2rem; }
-p { font-size: 1.3rem; line-height: 1.6;}
+
+h2 {
+    font-size: clamp(var(--text-xl), 6vw, var(--text-2xl));
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.2;
+}
+
+/* Унифицированный текст */
+p {
+    font-size: var(--text-base);
+    line-height: 1.5;
+    margin-bottom: var(--spacing-md);
+}
 
 /* Фото в стиле Polaroid */
 .polaroid-frame {
@@ -89,8 +139,10 @@ p { font-size: 1.3rem; line-height: 1.6;}
     display: inline-block;
     transform: rotate(var(--rotation, 0deg));
     transition: transform 0.3s ease;
-    margin: 15px;
+    margin: var(--spacing-sm);
     border: 1px solid #f0f0f0;
+    max-width: var(--photo-max);
+    width: 100%;
 }
 
 .polaroid-frame:hover {
@@ -98,7 +150,14 @@ p { font-size: 1.3rem; line-height: 1.6;}
     box-shadow: 0 15px 30px rgba(0,0,0,0.3);
 }
 
-/* Индивидуальные повороты через data-атрибуты или разные классы */
+.polaroid-frame img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Индивидуальные повороты */
 .polaroid-1 { --rotation: 5deg; }
 .polaroid-2 { --rotation: 5deg; }
 .polaroid-3 { --rotation: -5deg; }
@@ -107,53 +166,61 @@ p { font-size: 1.3rem; line-height: 1.6;}
 .two-photos {
     display: flex;
     justify-content: center;
-    gap: 2rem;
-    margin: 3rem 0 1rem;
+    gap: var(--spacing-lg);
+    margin: var(--spacing-xl) 0 var(--spacing-sm);
     flex-wrap: wrap;
-} 
+}
 
-/* Две колонки для слайда с местом */
-.two-columns-venue {
+.two-photos .polaroid-frame img {
+    height: 500px;
+}
+
+/* Две колонки */
+.two-columns-venue,
+.two-columns-cal {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 4rem;
+    gap: var(--spacing-2xl);
     flex-wrap: wrap;
 }
-.venue-image {
-    flex: 1;
-    min-width: 280px;
-    height: 300px;
-    background: #d4a08c;
-    border-radius: 0;
-    box-shadow: 0 20px 30px rgba(0,0,0,0.1);
-}
-.venue-info {
+
+.venue-info,
+.left-text {
     flex: 1;
     min-width: 280px;
     text-align: center;
 }
-@media (max-width: 700px) {
-    .two-columns-venue { flex-direction: column; }
-    .venue-info { text-align: center; }
+
+.left-text {
+    max-width: 500px;
 }
 
-/* Календарь прямоугольный */
+.venue-info h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.venue-info p {
+    font-size: var(--text-lg);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Календарь */
 .may-calendar-flat {
-    background: #fef7ed;
-    padding: 1.5rem;
+    background: var(--bg);
+    padding: var(--spacing-md);
     display: inline-block;
     width: 100%;
-    max-width: 380px;
-    border: 2px solid;
+    max-width: var(--calendar-max);
+    border: 2px solid var(--border);
     box-sizing: border-box;
 }
 
 .cal-header-flat {
-    font-size: 2rem;
-    font-family: 'Tenor Sans', sans-serif; 
-    margin-bottom: 1.2rem;
+    font-size: var(--text-xl);
+    margin-bottom: var(--spacing-md);
     font-weight: 600;
     text-align: center;
 }
@@ -161,9 +228,9 @@ p { font-size: 1.3rem; line-height: 1.6;}
 .cal-weekdays-flat {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    font-weight: 600; 
-    margin-bottom: 0.8rem;
-    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--text-xs);
     text-align: center;
     padding: 0 4px;
 }
@@ -174,81 +241,34 @@ p { font-size: 1.3rem; line-height: 1.6;}
     gap: 0px 4px;
 }
 
-/* Стили для всех span внутри cal-days-flat */
 .cal-days-flat span {
     aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fef7ed;
-    font-size: 1.2rem;
+    background: var(--bg);
+    font-size: var(--text-base);
     position: relative;
 }
 
-/* Стили для дня с сердечком */
 .cal-days-flat span.heart-day {
     color: #ffffff;
     font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" opacity="1.0"><path fill="%23d40100" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 80% 80%;
 }
 
-/* Две колонки для слайда с календарем */
-.two-columns-cal {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 4rem;
-    flex-wrap: wrap;
-}
-
-.left-text {
-    flex: 1;
-    min-width: 300px;
-    max-width: 500px;
-}
-
-.right-calendar {
-    flex: 1;
-    min-width: 400px;
-    max-width: 400px;
-    display: flex;
-    justify-content: center;
-}
-
-/* Адаптация для мобильных */
-@media (max-width: 900px) {
-    .two-columns-cal {
-        flex-direction: column;
-        gap: 2rem;
-    }
-    
-    .left-text {
-        text-align: center !important;
-        max-width: 100%;
-    }
-    
-    .left-text p {
-        text-align: center;
-    }
-}
-
-/* Тайминг с линиями (исправленный) */
+/* Тайминг */
 .timeline {
     display: flex;
     justify-content: space-between;
-    margin: 2rem 0 4rem;
+    margin: var(--spacing-lg) 0 var(--spacing-2xl);
     position: relative;
     padding-top: 20px;
 }
 
-/* Линия через псевдоэлемент родителя */
 .timeline::before {
     content: '';
     position: absolute;
@@ -256,7 +276,7 @@ p { font-size: 1.3rem; line-height: 1.6;}
     left: 50px;
     width: calc(100% - 70px);
     height: 2px;
-    background-color: #000000;
+    background-color: var(--border);
     z-index: 1;
 }
 
@@ -268,79 +288,60 @@ p { font-size: 1.3rem; line-height: 1.6;}
 }
 
 .big-time {
-    font-size: 3rem;
-    font-weight: 700;  
-    margin-bottom: 1.5rem;
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
 }
 
 .label {
-    font-size: 2.1rem;  
+    font-size: var(--text-xl);
 }
 
-/* Мобильная версия для тайминга */
-@media (max-width: 468px) {
-    .timeline {
-        flex-direction: column;
-        gap: 2rem;
-        padding-left: 0px;
-        position: relative;
-    }
-    
-    .timeline::before {
-        top: 0;
-        left: 50%;
-        width: 2px;
-        height: 100%;
-        background-color: #000000;
-    }
-    
-    .time-block {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        text-align: left;
-        width: 100%;
-        position: relative;
-    }
-    
-    .big-time {
-        margin-bottom: 0;
-        font-size: 2.5rem;
-        order: 2;
-    }
-    
-    .label {
-        font-size: 1.5rem;
-        order: 1;
-    }
-}
-
-/* Кнопки в едином стиле */
-.btn, .telegram-btn, .btn-submit {
-    background: #d40100;
+/* Кнопки - единый стиль */
+.btn,
+.telegram-btn,
+.btn-submit,
+.btn-secondary {
+    background: var(--primary);
     color: white;
-    padding: 1rem 2.8rem;
+    padding: var(--spacing-sm) var(--spacing-xl);
     border-radius: 60px;
     text-decoration: none;
-    font-size: 1.3rem;
+    font-size: var(--text-base);
     display: inline-block;
-    margin: 1rem 0;
+    margin: var(--spacing-sm) 0;
     transition: all 0.2s;
     border: none;
     cursor: pointer;
     font-family: 'Tenor Sans', sans-serif;
     font-weight: 500;
+    text-align: center;
+    min-width: 200px;
 }
-.btn:hover, .telegram-btn:hover, .btn-submit:hover {
-    background: #a20100;
+
+.btn-secondary {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.btn:hover,
+.telegram-btn:hover,
+.btn-submit:hover {
+    background: var(--primary-dark);
+}
+
+.btn-secondary:hover {
+    background: var(--primary);
+    color: white;
 }
 
 /* Слайдер пожеланий */
 .wishes-slider {
     position: relative;
     width: 100%;
-    max-width: 600px;
-    margin: 2rem auto 1rem;
+    max-width: var(--content-max);
+    margin: var(--spacing-lg) auto var(--spacing-sm);
     overflow: hidden;
 }
 
@@ -351,10 +352,9 @@ p { font-size: 1.3rem; line-height: 1.6;}
 
 .wish-item {
     min-width: 100%;
-    padding: 2rem;
+    padding: var(--spacing-lg);
     text-align: center;
-    font-size: 1.2rem;
-    font-family: 'Tenor Sans', sans-serif; 
+    font-size: var(--text-base);
     box-sizing: border-box;
 }
 
@@ -362,8 +362,8 @@ p { font-size: 1.3rem; line-height: 1.6;}
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
-    margin-top: 1rem;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-sm);
     width: 200px;
     margin-left: auto;
     margin-right: auto;
@@ -373,8 +373,8 @@ p { font-size: 1.3rem; line-height: 1.6;}
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 2rem;
-    color: #000;
+    font-size: var(--text-2xl);
+    color: var(--text);
     padding: 0;
     width: 40px;
     height: 40px;
@@ -383,94 +383,90 @@ p { font-size: 1.3rem; line-height: 1.6;}
     justify-content: center;
     flex-shrink: 0;
 }
- 
+
 .slider-counter {
-    font-size: 1.4rem;
-    font-family: 'Tenor Sans', sans-serif;
-    color: #000;
+    font-size: var(--text-lg);
     min-width: 50px;
     text-align: center;
 }
 
-.contact-info { 
-    max-width: 400px;
-    margin: 2rem auto;
-    padding: 2rem;  
-} 
+/* Контакты */
+.contact-info {
+    max-width: var(--form-max);
+    margin: var(--spacing-lg) auto;
+    padding: var(--spacing-lg);
+}
 
 .contact-phone {
     display: block;
-    font-size: 2rem; 
-    color: #000;
+    font-size: var(--text-2xl);
+    color: var(--text);
     text-decoration: none;
     font-weight: bold;
-    margin-bottom: 1.5rem;
-    font-family: 'Tenor Sans', sans-serif;
+    margin-bottom: var(--spacing-md);
 }
- 
+
 .contact-description {
-    font-size: 1.1rem; 
-    margin-bottom: 2rem;
-    line-height: 1.6;
-    font-family: 'Tenor Sans', sans-serif;
+    font-size: var(--text-base);
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.5;
 }
 
 /* Анкета */
 .rsvp {
-    max-width: 600px;
+    max-width: var(--form-max);
     margin: 0 auto;
     text-align: left;
 }
 
 .field {
-    margin-bottom: 2rem;
+    margin-bottom: var(--spacing-lg);
 }
 
 .field > label {
     display: block;
     margin-bottom: 12px;
-    font-weight: 500; 
-    font-size: 1.1rem;
-    color: #000;
+    font-weight: 500;
+    font-size: var(--text-base);
 }
 
 .field input[type="text"] {
     width: 100%;
     padding: 14px 22px;
     border-radius: 8px;
-    border: 1px solid #000;
-    font-size: 1.1rem;
+    border: 1px solid var(--border);
+    font-size: var(--text-base);
     box-sizing: border-box;
     transition: border-color 0.3s;
-    background-color: #fef7ed;
+    background-color: var(--bg);
 }
 
 .field input[type="text"]:focus {
     outline: none;
-    border-color: #000; 
+    border-color: #000;
 }
 
-/* Вертикальные радио-кнопки и чекбоксы */
-.radio-vertical, .checkbox-vertical {
+/* Радио и чекбоксы */
+.radio-vertical,
+.checkbox-vertical {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: 0.5rem 0;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs) 0;
 }
 
-/* Стили для лейблов */
-.radio-label, .checkbox-label {
+.radio-label,
+.checkbox-label {
     display: flex !important;
     align-items: center;
     gap: 12px;
     font-weight: normal !important;
     margin-bottom: 0 !important;
     cursor: pointer;
-    font-size: 1.1rem;
+    font-size: var(--text-base);
     padding: 4px 0;
 }
 
-/* Скрываем стандартные радио и чекбоксы */
 .radio-label input[type="radio"],
 .checkbox-label input[type="checkbox"] {
     position: absolute;
@@ -479,57 +475,43 @@ p { font-size: 1.3rem; line-height: 1.6;}
     height: 0;
 }
 
-/* Создаем кастомные элементы */
 .radio-label .custom-radio,
 .checkbox-label .custom-checkbox {
     display: inline-block;
     width: 24px;
     height: 24px;
-    border: 2px solid #000;
+    border: 2px solid var(--border);
     border-radius: 4px;
-    background-color: #fef7ed;
+    background-color: var(--bg);
     position: relative;
     transition: all 0.2s;
     flex-shrink: 0;
 }
 
-/* Для радио можно сделать круглыми, если хотите отличать */
 .radio-label .custom-radio {
     border-radius: 4px;
 }
 
-/* Состояние когда выбран */
 .radio-label input[type="radio"]:checked + .custom-radio,
 .checkbox-label input[type="checkbox"]:checked + .custom-checkbox {
-    background-color: #000;
-    border-color: #000;
-} 
-
-/* Добавляем точку для радио */
-.radio-label input[type="radio"]:checked + .custom-radio::after { 
-    display: none;
+    background-color: var(--border);
+    border-color: var(--border);
 }
 
-/* Стили для выключенного состояния */
-.radio-label input[type="radio"]:disabled + .custom-radio,
-.checkbox-label input[type="checkbox"]:disabled + .custom-checkbox {
-    background-color: #fef7ed;
-    border-color: #000;
-}
-
+/* Другое поле */
 .other-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
-    margin: 0.5rem 0;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-xs) 0;
 }
 
 .other-input {
     width: 100%;
     padding: 12px 16px;
     border-radius: 6px;
-    border: 1px solid #dbb2a2;
-    font-size: 1rem;
+    border: 1px solid #000;
+    font-size: var(--text-base);
     box-sizing: border-box;
     transition: all 0.3s;
     display: none;
@@ -537,38 +519,240 @@ p { font-size: 1.3rem; line-height: 1.6;}
 
 .other-input:focus {
     outline: none;
-    border-color: #d40100;
+    border-color: #000;
 }
 
-/* Стили для активного состояния */
 .other-input.active {
     display: block;
-    border-color: #d40100;
+    border-color: #000;
     background-color: white;
 }
 
+/* Цветные точки для дресс-кода */
 .color-dots {
     display: flex;
     gap: 25px;
     justify-content: center;
-    margin: 2rem 0;
+    margin: var(--spacing-lg) 0;
     flex-wrap: wrap;
 }
+
 .dot {
     width: 70px;
     height: 70px;
     border-radius: 50%;
     border: 3px solid white;
 }
+
 .dot1 { background: #A3B7A2; }
-.dot2 { background: #C58C8C ; }
-.dot3 { background: #8FA8C2 ; }
-.dot4 { background: #D6D6D6 ; }
-.dot5 { background: #2F3E5C ; }
+.dot2 { background: #C58C8C; }
+.dot3 { background: #8FA8C2; }
+.dot4 { background: #D6D6D6; }
+.dot5 { background: #2F3E5C; }
+
+/* Утилиты */
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
 
 .slide:last-child .wave-bottom {
     display: none;
 }
-.preserve-whitespace {
-    white-space: pre-wrap;
+
+/* Дополнительные утилитарные классы */
+.text-center {
+    text-align: center;
+}
+
+.block {
+    display: block;
+}
+
+/* Специфические классы для элементов */
+.couple-title {
+    color: var(--primary);
+    line-height: 0.8;
+}
+
+.date-title,
+.datetime-title {
+    font-size: clamp(var(--text-lg), 5vw, var(--text-xl));
+}
+
+.invitation-title {
+    margin-bottom: var(--spacing-md);
+}
+
+.invitation-text {
+    font-size: var(--text-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+.section-title {
+    margin-bottom: var(--spacing-lg);
+}
+
+.venue-title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.venue-name {
+    font-size: var(--text-lg);
+    margin-bottom: var(--spacing-sm);
+}
+
+.venue-address {
+    font-size: var(--text-base);
+    margin-bottom: var(--spacing-md);
+}
+
+.venue-polaroid {
+    max-width: var(--photo-max);
+    width: 100%;
+    padding: 10px 10px 30px 10px;
+}
+
+.venue-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+}
+
+.dresscode-text {
+    max-width: var(--content-max);
+    margin: 0 auto;
+}
+
+.rsvp-deadline {
+    font-size: var(--text-lg);
+    line-height: 1.2;
+    margin-bottom: var(--spacing-md);
+}
+
+.farewell-title {
+    line-height: 1;
+    margin-bottom: var(--spacing-md);
+}
+
+.child-photo {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+}
+
+.thankyou-slide {
+    justify-content: flex-start;
+    padding-top: var(--spacing-2xl);
+}
+
+.thankyou-title {
+    color: var(--primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.thankyou-subtitle {
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Для секции с анкетой - для якоря */
+#rsvp-section {
+    scroll-margin-top: 2rem;
+}
+
+/* Центрирование кнопок */
+.text-center {
+    text-align: center;
+}
+
+.button-center {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: var(--spacing-lg);
+}
+
+/* Мобильные адаптации */
+@media (max-width: 900px) {
+    .two-columns-cal {
+        flex-direction: column;
+        gap: var(--spacing-lg);
+    }
+    
+    .left-text {
+        text-align: center !important;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 700px) {
+    .two-columns-venue {
+        flex-direction: column;
+        gap: var(--spacing-xl);
+    }
+}
+
+@media (max-width: 600px) {
+    :root {
+        --spacing-lg: 1.5rem;
+        --spacing-xl: 2rem;
+    }
+    
+    .content {
+        padding: var(--spacing-sm);
+    }
+    
+    .btn,
+    .telegram-btn,
+    .btn-submit,
+    .btn-secondary {
+        min-width: 100%;
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .big-time {
+        font-size: var(--text-2xl);
+    }
+    
+    .label {
+        font-size: var(--text-lg);
+    }
+    
+    .contact-phone {
+        font-size: var(--text-xl);
+    }
+}
+
+@media (max-width: 468px) {
+    .timeline {
+        flex-direction: column;
+        gap: var(--spacing-lg);
+        padding-left: 0;
+    }
+    
+    .timeline::before {
+        top: 0;
+        left: 50%;
+        width: 2px;
+        height: 100%;
+    }
+    
+    .time-block {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        width: 100%;
+    }
+    
+    .big-time {
+        margin-bottom: 0;
+        order: 2;
+    }
+    
+    .label {
+        order: 1;
+    }
 }

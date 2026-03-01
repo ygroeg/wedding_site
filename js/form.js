@@ -1,4 +1,6 @@
-﻿// Инициализация при загрузке страницы
+﻿// js/form.js
+
+// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     const otherCheckbox = document.getElementById('otherCheckbox');
     const otherInput = document.getElementById('otherInput');
@@ -30,6 +32,9 @@ window.scrollToRsvp = function() {
 }
 
 window.saveGuestResponse = function() {
+    // Получаем текущий язык для сообщений
+    const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
+    
     // Получаем имя
     const name = document.getElementById('guestName').value.trim();
     
@@ -45,7 +50,7 @@ window.saveGuestResponse = function() {
         if (cb.value === 'other') {
             const otherValue = document.getElementById('otherInput').value.trim();
             if (otherValue) {
-                alcoholPreferences.push(`Другое: ${otherValue}`);
+                alcoholPreferences.push(`Altro: ${otherValue}`);
             }
         } else {
             alcoholPreferences.push(cb.value);
@@ -54,18 +59,18 @@ window.saveGuestResponse = function() {
     
     // Валидация
     if (!name) {
-        alert('Пожалуйста, введите имя');
+        alert(translations[currentLang]['validation_name']);
         return;
     }
     
     if (!attend) {
-        alert('Пожалуйста, укажите, планируете ли Вы присутствовать');
+        alert(translations[currentLang]['validation_attend']);
         return;
     }
     
     // Если человек придет, проверяем что выбрал хотя бы один напиток
     if (attend === 'yes' && alcoholPreferences.length === 0) {
-        alert('Пожалуйста, укажите ваши предпочтения по напиткам');
+        alert(translations[currentLang]['validation_drinks']);
         return;
     }
     
@@ -73,7 +78,7 @@ window.saveGuestResponse = function() {
     const otherCheckbox = document.getElementById('otherCheckbox');
     const otherInput = document.getElementById('otherInput');
     if (otherCheckbox && otherCheckbox.checked && !otherInput.value.trim()) {
-        alert('Пожалуйста, укажите ваш вариант напитка');
+        alert(translations[currentLang]['validation_other']);
         otherInput.focus();
         return;
     }
@@ -81,12 +86,12 @@ window.saveGuestResponse = function() {
     // Форматируем напитки для красивого отображения
     const formattedAlcohol = alcoholPreferences.map(drink => {
         const drinkMap = {
-            'champagne': '🍾 Шампанское',
-            'white wine': '🥂 Белое вино',
-            'red wine': '🍷 Красное вино',
-            'vodka': '🥃 Водка',
-            'whiskey': '🥃 Виски',
-            'none': '🚫 Не пью алкоголь'
+            'champagne': '🍾 ' + (currentLang === 'ru' ? 'Шампанское' : 'Champagne'),
+            'white wine': '🥂 ' + (currentLang === 'ru' ? 'Белое вино' : 'Vino bianco'),
+            'red wine': '🍷 ' + (currentLang === 'ru' ? 'Красное вино' : 'Vino rosso'),
+            'vodka': '🥃 ' + (currentLang === 'ru' ? 'Водка' : 'Vodka'),
+            'whiskey': '🥃 ' + (currentLang === 'ru' ? 'Виски' : 'Whisky'),
+            'none': '🚫 ' + (currentLang === 'ru' ? 'Не пью алкоголь' : 'Non bevo alcolici')
         };
         return drinkMap[drink] || drink;
     }).join(', ');
@@ -94,9 +99,11 @@ window.saveGuestResponse = function() {
     // Создаем объект с данными
     const guestData = {
         name: name,
-        attend: attend === 'yes' ? '✅ Да, с удовольствием' : '❌ Не смогу',
-        alcohol: formattedAlcohol || 'Не указано',
-        timestamp: new Date().toLocaleString('ru-RU')
+        attend: attend === 'yes' 
+            ? (currentLang === 'ru' ? '✅ Да, с удовольствием' : '✅ Sì, con piacere')
+            : (currentLang === 'ru' ? '❌ Не смогу' : '❌ Non posso'),
+        alcohol: formattedAlcohol || (currentLang === 'ru' ? 'Не указано' : 'Non specificato'),
+        timestamp: new Date().toLocaleString(currentLang === 'ru' ? 'ru-RU' : 'it-IT')
     };
     
     // Сохраняем в localStorage
@@ -111,10 +118,12 @@ window.saveGuestResponse = function() {
 
 // Функция отправки email
 function sendEmail(guestData) {
-    // Показываем индикатор загрузки (можно заменить на красивый loader)
+    const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
+    
+    // Показываем индикатор загрузки
     const submitBtn = document.querySelector('.btn-submit');
     const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Отправка...';
+    submitBtn.textContent = translations[currentLang]['email_sending'];
     submitBtn.disabled = true;
     
     // Параметры для шаблона EmailJS
@@ -123,6 +132,7 @@ function sendEmail(guestData) {
         attendance: guestData.attend,
         drinks: guestData.alcohol,
         submission_time: guestData.timestamp,
+        language: currentLang
     };
     
     // Отправка
@@ -139,8 +149,8 @@ function sendEmail(guestData) {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
             
-            // Показываем ошибку, но сохраняем в localStorage и перенаправляемы
-            alert('Не удалось отправить email, позвоните нам, номер указан в контактах. Мы свяжемся с вами!');
+            // Показываем ошибку
+            alert(translations[currentLang]['email_error']);
             
             // Всё равно перенаправляем на страницу благодарности
             window.location.href = 'thankyou.html';

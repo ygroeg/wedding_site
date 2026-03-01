@@ -1,5 +1,9 @@
-﻿// Загрузка и отображение данных гостя
+﻿// js/thankyou.js
+
+// Загрузка и отображение данных гостя
 document.addEventListener('DOMContentLoaded', function() {
+    const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
+    
     // Получаем данные из localStorage
     const guests = JSON.parse(localStorage.getItem('weddingGuests') || '[]');
     const lastGuest = guests[guests.length - 1];
@@ -9,65 +13,58 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
-    // Форматируем данные для отображения
+    // Обновляем заголовок
+    document.title = translations[currentLang]['thankyou_tab_title'];
+    
+    // Обновляем все тексты на странице
+    updatePageTexts(currentLang);
+    
+    // Форматируем данные для отображения (если раскомментировать блок в HTML)
     const summaryContent = document.getElementById('summaryContent');
-    const debugContent = document.getElementById('debugContent');
-    
-    // Создаем красивое отображение
-    let summaryHtml = '';
-    
-    // Имя
-    summaryHtml += `
-        <div class="summary-item">
-            <span class="summary-label">Имя:</span>
-            <span class="summary-value">${escapeHtml(lastGuest.name)}</span>
-        </div>
-    `;
-    
-    // Присутствие
-    const attendText = lastGuest.attend === 'yes' ? '✅ Да, с удовольствием' : '❌ Не смогу';
-    summaryHtml += `
-        <div class="summary-item">
-            <span class="summary-label">Присутствие:</span>
-            <span class="summary-value">${attendText}</span>
-        </div>
-    `;
-    
-    // Напитки (если есть)
-    if (lastGuest.alcohol && lastGuest.alcohol.length > 0) {
-        const alcoholText = lastGuest.alcohol.map(drink => {
-            const drinkMap = {
-                'champagne': '🍾 Шампанское',
-                'white wine': '🥂 Белое вино',
-                'red wine': '🍷 Красное вино',
-                'vodka': '🥃 Водка',
-                'whiskey': '🥃 Виски',
-                'none': '🚫 Не пью алкоголь'
-            };
-            return drinkMap[drink] || drink;
-        }).join('<br>');
+    if (summaryContent) {
+        let summaryHtml = '';
         
+        // Имя
         summaryHtml += `
             <div class="summary-item">
-                <span class="summary-label">Напитки:</span>
-                <span class="summary-value">${alcoholText}</span>
+                <span class="summary-label">${translations[currentLang]['guest_name_label']}:</span>
+                <span class="summary-value">${escapeHtml(lastGuest.name)}</span>
             </div>
         `;
-    }
-    
-    // Время заполнения
-    if (lastGuest.timestamp) {
+        
+        // Присутствие
         summaryHtml += `
             <div class="summary-item">
-                <span class="summary-label">Время:</span>
-                <span class="summary-value">${escapeHtml(lastGuest.timestamp)}</span>
+                <span class="summary-label">${translations[currentLang]['attend_label']}:</span>
+                <span class="summary-value">${lastGuest.attend}</span>
             </div>
         `;
+        
+        // Напитки (если есть)
+        if (lastGuest.alcohol && lastGuest.alcohol !== (currentLang === 'ru' ? 'Не указано' : 'Non specificato')) {
+            summaryHtml += `
+                <div class="summary-item">
+                    <span class="summary-label">${translations[currentLang]['drinks_label']}:</span>
+                    <span class="summary-value">${lastGuest.alcohol}</span>
+                </div>
+            `;
+        }
+        
+        // Время заполнения
+        if (lastGuest.timestamp) {
+            summaryHtml += `
+                <div class="summary-item">
+                    <span class="summary-label">${currentLang === 'ru' ? 'Время:' : 'Ora:'}</span>
+                    <span class="summary-value">${escapeHtml(lastGuest.timestamp)}</span>
+                </div>
+            `;
+        }
+        
+        summaryContent.innerHTML = summaryHtml;
     }
     
-    summaryContent.innerHTML = summaryHtml;
-    
-    // Debug информация (полные данные)
+    // Debug информация (если есть)
+    const debugContent = document.getElementById('debugContent');
     if (debugContent) {
         debugContent.textContent = JSON.stringify(lastGuest, null, 2);
     }
@@ -77,5 +74,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+    
+    // Функция обновления текстов на странице
+    function updatePageTexts(lang) {
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (translations[lang]?.[key]) {
+                element.textContent = translations[lang][key];
+            }
+        });
     }
 });

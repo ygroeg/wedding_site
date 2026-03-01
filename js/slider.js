@@ -1,18 +1,21 @@
-﻿// Слайдер пожеланий
+﻿// js/slider.js
 let currentWish = 1;
 let wishes = [];
-const wishSlider = document.getElementById('wishSlider');
-const wishCounter = document.getElementById('wishCounter');
 
-// Оригинальные пожелания
-const wishesData = [
-    'Будем очень признательны, если Вы воздержитесь от криков «Горько». Ведь поцелуй – это знак выражения чувств, и он не может быть по заказу.',
-    'Мы с теплотой относимся к детям любого возраста. Но для свадьбы выбрали формат 18+.',
-    'Пожалуйста, не дарите нам цветы! Мы не успеем насладиться их красотой и ароматом. Если хотите подарить нам ценный и нужный подарок, мы будем очень благодарны за вклад в бюджет нашей молодой семьи.'
-];
-
-// Создаем элементы с клонами для бесконечной прокрутки
 function initSlider() {
+    const wishSlider = document.getElementById('wishSlider');
+    if (!wishSlider) return;
+    
+    // Получаем текущий язык
+    const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
+    
+    // Загружаем пожелания на текущем языке
+    const wishesData = [
+        translations[currentLang]['wish_1'],
+        translations[currentLang]['wish_2'],
+        translations[currentLang]['wish_3']
+    ];
+    
     // Очищаем контейнер
     wishSlider.innerHTML = '';
     
@@ -45,6 +48,10 @@ function initSlider() {
 }
 
 function updateWishSlider(animate = true) {
+    const wishSlider = document.getElementById('wishSlider');
+    const wishCounter = document.getElementById('wishCounter');
+    if (!wishSlider || !wishCounter) return;
+    
     if (!animate) {
         wishSlider.style.transition = 'none';
         wishSlider.style.transform = `translateX(-${currentWish * 100}%)`;
@@ -57,8 +64,11 @@ function updateWishSlider(animate = true) {
     
     // Обновляем счетчик (вычитаем 1 из-за клона в начале)
     const originalIndex = currentWish - 1;
-    if (originalIndex >= 0 && originalIndex < wishesData.length) {
-        wishCounter.textContent = `${originalIndex + 1}/${wishesData.length}`;
+    const currentLang = localStorage.getItem('selectedLanguage') || 'ru';
+    const totalWishes = 3; // Всегда 3 пожелания
+    
+    if (originalIndex >= 0 && originalIndex < totalWishes) {
+        wishCounter.textContent = `${originalIndex + 1}/${totalWishes}`;
     }
 }
 
@@ -87,3 +97,29 @@ window.prevWish = function() {
         }, 300);
     }
 }
+
+// Функция для обновления слайдера при смене языка
+window.updateWishesSlider = function(lang) {
+    const wishSlider = document.getElementById('wishSlider');
+    if (!wishSlider) return;
+    
+    const wishesData = [
+        translations[lang]['wish_1'],
+        translations[lang]['wish_2'],
+        translations[lang]['wish_3']
+    ];
+    
+    // Обновляем все слайды
+    const items = document.querySelectorAll('.wish-item');
+    if (items.length === 5) { // 2 клона + 3 оригинала
+        items[0].textContent = wishesData[2]; // первый клон
+        items[1].textContent = wishesData[0]; // оригинал 1
+        items[2].textContent = wishesData[1]; // оригинал 2
+        items[3].textContent = wishesData[2]; // оригинал 3
+        items[4].textContent = wishesData[0]; // последний клон
+    }
+    
+    // Сбрасываем позицию
+    currentWish = 1;
+    updateWishSlider(false);
+};

@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Таня и Гоша · Приглашение на свадьбу</title>
+    <title data-i18n="tab_title">Таня и Гоша · Приглашение на свадьбу</title>
     
     <!-- Preconnect for fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,10 +17,11 @@
     <!-- 1. Имена, фото, дата (Polaroid) -->
     <section class="slide">
         <div class="content text-center">
-            <h2 class="date-title">7 мая, 2026</h2>
+            <h2 class="date-title" data-i18n="date_7_may">7 мая, 2026</h2>
             <h1 class="couple-title">
-                <span class="block">Таня</span>
-                <span class="block">& Гоша</span>
+                <span class="block" data-i18n="tanya">Таня</span>
+                <span class="block" data-i18n="and">&</span>
+                <span class="block" data-i18n="gosha">Гоша</span>
             </h1>              
             <div class="polaroid-frame polaroid-1">
                 <img src="src/TanyaGosha.jpg" alt="Таня и Гоша" class="polaroid-img">
@@ -35,19 +36,25 @@
             <div class="two-columns-cal">
                 <div class="left-text text-center">
                     <h2 class="invitation-title">
-                        <span class="block">Дорогие</span>
-                        <span class="block">друзья и родные!</span>
+                        <span class="block" data-i18n="invitation_line1">Дорогие</span>
+                        <span class="block" data-i18n="invitation_line2">друзья и родные!</span>
                     </h2>
-                    <p class="invitation-text">
+                    <p class="invitation-text" data-i18n="invitation_text">
                         Ну вот и всё, дождались! :) Мы решили пожениться и хотим видеть вас в качестве того, кто разделит с нами этот долгожданный день!
                     </p>              
-                    <h2 class="datetime-title">7 мая, 2026 | 17:00</h2>
+                    <h2 class="datetime-title" data-i18n="date_time">7 мая, 2026 | 17:00</h2>
                 </div>
                 <div class="right-calendar text-center">
                     <div class="may-calendar-flat">
-                        <div class="cal-header-flat">Май 2026</div>
+                        <div class="cal-header-flat" data-i18n="calendar_month">Май 2026</div>
                         <div class="cal-weekdays-flat">
-                            <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span>
+                            <span data-i18n="calendar_mon">Пн</span>
+                            <span data-i18n="calendar_tue">Вт</span>
+                            <span data-i18n="calendar_wed">Ср</span>
+                            <span data-i18n="calendar_thu">Чт</span>
+                            <span data-i18n="calendar_fri">Пт</span>
+                            <span data-i18n="calendar_sat">Сб</span>
+                            <span data-i18n="calendar_sun">Вс</span>
                         </div>
                         <div class="cal-days-flat">
                             <span></span><span></span><span></span><span></span><span>1</span><span>2</span><span>3</span>
@@ -68,23 +75,17 @@
         <div class="content">
             <div class="two-columns-venue">
                 <div class="venue-info">
-                    <h2 class="venue-title">Место регистрации</h2>
+                    <h2 class="venue-title" data-i18n="venue_registration_title">Место регистрации</h2>
                     <div class="polaroid-frame venue-polaroid">
                         <img src="src/zags.jpg" alt="Дворец бракосочетания №2" class="venue-img">
                     </div> 
-                    <p class="venue-name">Дворец бракосочетания №2</p>
-                    <p class="venue-address">ул. Фурштатская 52, Санкт-Петербург</p>
-                    <a href="https://yandex.ru/maps/-/CPqm6Q1l" target="_blank" class="btn">Открыть карту</a>
+                    <p class="venue-name" data-i18n="venue_registration_name">Дворец бракосочетания №2</p>
+                    <p class="venue-address" data-i18n="venue_registration_address">ул. Фурштатская 52, Санкт-Петербург</p>
+                    <a href="https://yandex.ru/maps/-/CPqm6Q1l" target="_blank" class="btn" data-i18n="btn_open_map">Открыть карту</a>
                 </div>
                 <div class="venue-info">
-                    <h2 class="venue-title">Место банкета</h2>
-                    <p class="venue-name">Место проведения будет уточнено позже.</p>
-                <!-- <div class="polaroid-frame venue-polaroid">
-                        <img src="src/mircuccio.JPG" alt="Ресторан «Mircuccio Osteria»" class="venue-img">
-                    </div> 
-                    <p class="venue-name">Ресторан «Mircuccio Osteria»</p>
-                    <p class="venue-address">ул. Моисеенко, 27, Санкт-Петербург</p>
-                    <a href="https://yandex.ru/maps/-/CPqmbY3a" target="_blank" class="btn">Открыть карту</a> -->
+                    <h2 class="venue-title" data-i18n="venue_banquet_title">Место банкета</h2>
+                    <p class="venue-name" data-i18n="venue_banquet_text">Место проведения будет уточнено позже.</p>
                 </div>
             </div>
         </div>
@@ -94,19 +95,19 @@
     <!-- 4. Тайминг -->
     <section class="slide">
         <div class="content text-center">
-            <h2 class="section-title">Тайминг</h2>
+            <h2 class="section-title" data-i18n="timing_title">Тайминг</h2>
             <div class="timeline">
                 <div class="time-block">
                     <div class="big-time">17:00</div>
-                    <div class="label">Церемония регистрации</div>
+                    <div class="label" data-i18n="timing_ceremony">Церемония регистрации</div>
                 </div>
                 <div class="time-block">
                     <div class="big-time">18:00</div>
-                    <div class="label">Банкет</div>
+                    <div class="label" data-i18n="timing_banquet">Банкет</div>
                 </div>
                 <div class="time-block">
                     <div class="big-time">23:00</div>
-                    <div class="label">Завершение вечера</div>
+                    <div class="label" data-i18n="timing_end">Завершение вечера</div>
                 </div>
             </div>
         </div>
@@ -116,19 +117,19 @@
     <!-- 5. Дресс-код -->
     <section class="slide">
         <div class="content text-center">
-            <h2 class="section-title">Дресс-код</h2> 
+            <h2 class="section-title" data-i18n="dresscode_title">Дресс-код</h2> 
             <div class="color-dots">
-                <div class="dot dot2" data-color="Пыльная роза"></div>
-                <div class="dot dot7" data-color="Глубокая роза"></div>
-                <div class="dot dot8" data-color="Винный (приглушённый)"></div>
-                <div class="dot dot4" data-color="Светло-серый"></div>
-                <div class="dot dot3" data-color="Дымчато-голубой"></div>
-                <div class="dot dot5" data-color="Глубокий синий"></div>
-                <div class="dot dot1" data-color="Шалфей"></div>
-                <div class="dot dot6" data-color="Тёмный оливковый"></div>
-                <div class="dot dot9" data-color="Графит"></div>
+                <div class="dot dot2" data-color-key="color_dusty_rose" data-color="Пыльная роза"></div>
+                <div class="dot dot7" data-color-key="color_deep_rose" data-color="Глубокая роза"></div>
+                <div class="dot dot8" data-color-key="color_wine" data-color="Винный (приглушённый)"></div>
+                <div class="dot dot4" data-color-key="color_light_gray" data-color="Светло-серый"></div>
+                <div class="dot dot3" data-color-key="color_smoky_blue" data-color="Дымчато-голубой"></div>
+                <div class="dot dot5" data-color-key="color_deep_blue" data-color="Глубокий синий"></div>
+                <div class="dot dot1" data-color-key="color_sage" data-color="Шалфей"></div>
+                <div class="dot dot6" data-color-key="color_dark_olive" data-color="Тёмный оливковый"></div>
+                <div class="dot dot9" data-color-key="color_graphite" data-color="Графит"></div>
             </div>
-            <p class="dresscode-text preserve-whitespace">
+            <p class="dresscode-text preserve-whitespace" data-i18n="dresscode_text">
 Будем рады видеть вас в элегантных образах в весенней палитре:
 шалфей, пыльная роза, дымчато-голубой, светло-серый и глубокий синий.
 
@@ -142,13 +143,12 @@
         <div class="wave-bottom wave-complex"></div>
     </section>
 
-    <!-- 7. Слайдер пожеланий -->
+    <!-- 6. Слайдер пожеланий -->
     <section class="slide">
         <div class="content text-center">
-            <h2 class="section-title">Пожелания</h2>
+            <h2 class="section-title" data-i18n="wishes_title">Пожелания</h2>
             <div class="wishes-slider">
-                <div class="wishes-container" id="wishSlider"> 
-                </div>
+                <div class="wishes-container" id="wishSlider"></div>
             </div>
             
             <div class="slider-controls">
@@ -160,105 +160,105 @@
         <div class="wave-bottom wave-frequent"></div>
     </section>
 
-    <!-- 8. Анкета -->
+    <!-- 7. Анкета -->
     <section class="slide" id="rsvp-section">
         <div class="content">
-            <h2 class="section-title text-center">Анкета гостя</h2>
+            <h2 class="section-title text-center" data-i18n="rsvp_title">Анкета гостя</h2>
             <div class="rsvp">
-                <p class="rsvp-deadline text-center">
+                <p class="rsvp-deadline text-center" data-i18n="rsvp_deadline_text">
                     Пожалуйста, подтвердите своё присутствие на мероприятии до:
                 </p>
-                <h2 class="venue-title text-center">9 марта 2026</h2>
+                <h2 class="venue-title text-center" data-i18n="rsvp_deadline_date">9 марта 2026</h2>
                 
                 <!-- Десктопная версия -->
                 <div class="rsvp desktop-only">
                     <div class="field">
-                        <label for="guestName">Ваше имя</label>
-                        <input type="text" id="guestName" placeholder="Имя и фамилия">
+                        <label for="guestName" data-i18n="guest_name_label">Ваше имя</label>
+                        <input type="text" id="guestName" data-i18n-placeholder="guest_name_placeholder" placeholder="Имя и фамилия">
                     </div>
                     
                     <div class="field">
-                        <label>Планируете ли Вы присутствовать?</label>
+                        <label data-i18n="attend_label">Планируете ли Вы присутствовать?</label>
                         <div class="radio-vertical">
                             <label class="radio-label">
                                 <input type="radio" name="attend" value="yes">
                                 <span class="custom-radio"></span>
-                                Да, с удовольствием
+                                <span data-i18n="attend_yes">Да, с удовольствием</span>
                             </label>
                             <label class="radio-label">
                                 <input type="radio" name="attend" value="no">
                                 <span class="custom-radio"></span>
-                                Не смогу
+                                <span data-i18n="attend_no">Не смогу</span>
                             </label>
                         </div>
                     </div>
 
                     <div class="field">
-                        <label>Ваши предпочтения в напитках (можно выбрать несколько)</label>
+                        <label data-i18n="drinks_label">Ваши предпочтения в напитках (можно выбрать несколько)</label>
                         <div class="checkbox-vertical" id="alcoholChoice">
                             <label class="checkbox-label">
                                 <input type="checkbox" name="alc" value="champagne">
                                 <span class="custom-checkbox"></span>
-                                Шампанское
+                                <span data-i18n="drink_champagne">Шампанское</span>
                             </label>
                             <label class="checkbox-label">
                                 <input type="checkbox" name="alc" value="white wine">
                                 <span class="custom-checkbox"></span>
-                                Белое вино
+                                <span data-i18n="drink_white_wine">Белое вино</span>
                             </label>
                             <label class="checkbox-label">
                                 <input type="checkbox" name="alc" value="red wine">
                                 <span class="custom-checkbox"></span>
-                                Красное вино
+                                <span data-i18n="drink_red_wine">Красное вино</span>
                             </label>
                             <label class="checkbox-label">
                                 <input type="checkbox" name="alc" value="vodka">
                                 <span class="custom-checkbox"></span>
-                                Водка
+                                <span data-i18n="drink_vodka">Водка</span>
                             </label>
                             <label class="checkbox-label">
                                 <input type="checkbox" name="alc" value="whiskey">
                                 <span class="custom-checkbox"></span>
-                                Виски
+                                <span data-i18n="drink_whiskey">Виски</span>
                             </label>
                             <div class="other-wrapper">
                                 <label class="checkbox-label">
                                     <input type="checkbox" name="alc" value="other" id="otherCheckbox">
                                     <span class="custom-checkbox"></span>
-                                    Другое
+                                    <span data-i18n="drink_other">Другое</span>
                                 </label>
-                                <input type="text" id="otherInput" class="other-input" placeholder="Укажите ваш вариант">
+                                <input type="text" id="otherInput" class="other-input" data-i18n-placeholder="drink_other_placeholder" placeholder="Укажите ваш вариант">
                             </div>
                             <label class="checkbox-label">
                                 <input type="checkbox" name="alc" value="none">
                                 <span class="custom-checkbox"></span>
-                                Не пью алкоголь
+                                <span data-i18n="drink_none">Не пью алкоголь</span>
                             </label>
                         </div>
                     </div>
                     
                     <div class="button-center">
-                        <button class="btn-submit" onclick="saveGuestResponse()">Подтвердить</button>
+                        <button class="btn-submit" onclick="saveGuestResponse()" data-i18n="btn_confirm">Подтвердить</button>
                     </div>
                 </div>
                 
                 <!-- Мобильная версия -->
                 <div class="mobile-only">
-                    <a href="rsvp.html" class="btn mobile-rsvp-link">Подтвердить</a>
+                    <a href="rsvp.html" class="btn mobile-rsvp-link" data-i18n="mobile_confirm">Подтвердить</a>
                 </div>
             </div>
         </div>
         <div class="wave-bottom wave-steep wave-overlay"></div>
     </section>
 
-    <!-- 9. Контакты -->
+    <!-- 8. Контакты -->
     <section class="slide">
         <div class="content text-center">
-            <h2 class="section-title">Контакты</h2>
+            <h2 class="section-title" data-i18n="contacts_title">Контакты</h2>
             <div class="contact-info"> 
-                <p class="contact-description">По всем вопросам, связанным с мероприятием, напишите нам!</p>
+                <p class="contact-description" data-i18n="contacts_description">По всем вопросам, связанным с мероприятием, напишите нам!</p>
                 <a href="tel:79217967849" class="contact-phone">+7 (921) 796-78-49</a>
-                <a href="https://t.me/yigroeg" class="telegram-btn" target="_blank">
+                <a href="https://t.me/yigroeg" class="telegram-btn" target="_blank" data-i18n="telegram_btn">
                     Написать в Telegram
                 </a>
             </div>
@@ -266,16 +266,17 @@
         <div class="wave-bottom wave-rare wave-bold"></div>
     </section>
 
-    <!-- 10. Скорой встречи с Polaroid фото -->
+    <!-- 9. Скорой встречи с Polaroid фото -->
     <section class="slide">
         <div class="content text-center">
             <h2 class="farewell-title">
-                <span class="block">До скорой встречи!</span>
-                <span class="block">С любовью</span>
+                <span class="block" data-i18n="farewell_see_you">До скорой встречи!</span>
+                <span class="block" data-i18n="farewell_with_love">С любовью</span>
             </h2>
             <h1 class="couple-title">
-                <span class="block">Таня</span>
-                <span class="block">& Гоша</span>
+                <span class="block" data-i18n="tanya">Таня</span>
+                <span class="block" data-i18n="and">&</span>
+                <span class="block" data-i18n="gosha">Гоша</span>
             </h1>
             <div class="two-photos">
                 <div class="polaroid-frame polaroid-2"> 
@@ -285,11 +286,12 @@
                     <img src="src/GoshaYoung.jpg" alt="Гоша в детстве" class="child-photo">
                 </div>
             </div>              
-            <h2 class="date-title">7 мая, 2026 | 17:00</h2>
+            <h2 class="date-title" data-i18n="date_time">7 мая, 2026 | 17:00</h2>
         </div>
     </section>
 
     <!-- Scripts -->
+    <script src="js/translations.js"></script>
     <script src="js/slider.js"></script>
     <script src="js/form.js"></script>
     <script src="js/waves.js"></script>
@@ -304,6 +306,6 @@
     </script>
     
     <!-- Плавающая кнопка для мобильных -->
-    <a href="rsvp.html" class="mobile-rsvp-btn">Подтвердить присутствие</a>
+    <a href="rsvp.html" class="mobile-rsvp-btn" data-i18n="mobile_confirm">Подтвердить присутствие</a>
 </body>
 </html>

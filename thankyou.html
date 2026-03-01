@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Спасибо! · Таня и Гоша</title>
+    <title data-i18n="thankyou_tab_title">Спасибо! · Таня и Гоша</title>
     
     <!-- Preconnect for fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,28 +20,28 @@
     <section class="slide visible thankyou-slide">
         <div class="content">
             <div class="thankyou-content">                
-                <h2 class="thankyou-title">Спасибо!</h2>                
-                <h2 class="thankyou-subtitle">Ваш ответ получен</h2>
+                <h2 class="thankyou-title" data-i18n="thankyou_title">Спасибо!</h2>                
+                <h2 class="thankyou-subtitle" data-i18n="thankyou_subtitle">Ваш ответ получен</h2>
                 
-                <!-- Guest data summary -->
+                <!-- Guest data summary (закомментировано, но можно раскомментировать при необходимости) -->
                 <!-- <div id="guestSummary" class="guest-summary">
                     <div class="summary-title">Ваши данные</div>
                     <div id="summaryContent"></div>
                 </div> -->
                 
-                <!-- Debug section - will be removed later -->
+                <!-- Debug section (закомментировано) -->
                 <!-- <div id="debugSection" class="debug-section">
-                    <div class="debug-title">Отладка (будет удалено)</div>
+                    <div class="debug-title">Отладка</div>
                     <pre id="debugContent" class="debug-content"></pre>
                 </div> -->
                 
-                <p class="note">
+                <p class="note" data-i18n="thankyou_note">
                     * Если вы ошиблись в данных, просто заполните форму заново
                 </p>
                 
                 <div class="button-group">
-                    <a href="index.html#rsvp" class="btn">Зарегистрировать ещё гостя</a>
-                    <a href="index.html" class="btn">На главную</a>
+                    <a href="index.html#rsvp" class="btn" data-i18n="btn_register_another">Зарегистрировать ещё гостя</a>
+                    <a href="index.html" class="btn" data-i18n="btn_to_home">На главную</a>
                 </div>
             </div>
         </div>
@@ -54,6 +54,8 @@
     </section>
 
     <!-- Scripts -->
+    <script src="js/translations.js"></script>
     <script src="js/thankyou.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

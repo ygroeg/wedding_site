@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Анкета гостя · Таня и Гоша</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/rsvp-mobile.css">
+</head>
+<body class="rsvp-mobile-page">
+    <div class="rsvp-container">
+        <a href="index.html#rsvp-section" class="close-btn">X</a>
+        
+        <h2 class="section-title">Анкета гостя</h2>
+        
+        <div class="rsvp">
+            <p class="rsvp-deadline">
+                Пожалуйста, подтвердите своё присутствие на мероприятии до:
+            </p>
+            <h2 class="venue-title text-center">9 марта 2026</h2>
+            
+            <div class="field">
+                <label for="guestName">Ваше имя</label>
+                <input type="text" id="guestName" placeholder="Имя и фамилия">
+            </div>
+            
+            <div class="field">
+                <label>Планируете ли Вы присутствовать?</label>
+                <div class="radio-vertical">
+                    <label class="radio-label">
+                        <input type="radio" name="attend" value="yes">
+                        <span class="custom-radio"></span>
+                        Да, с удовольствием
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="attend" value="no">
+                        <span class="custom-radio"></span>
+                        Не смогу
+                    </label>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Ваши предпочтения в напитках (можно выбрать несколько)</label>
+                <div class="checkbox-vertical" id="alcoholChoice">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="alc" value="champagne">
+                        <span class="custom-checkbox"></span>
+                        Шампанское
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="alc" value="white wine">
+                        <span class="custom-checkbox"></span>
+                        Белое вино
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="alc" value="red wine">
+                        <span class="custom-checkbox"></span>
+                        Красное вино
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="alc" value="vodka">
+                        <span class="custom-checkbox"></span>
+                        Водка
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="alc" value="whiskey">
+                        <span class="custom-checkbox"></span>
+                        Виски
+                    </label>
+                    <div class="other-wrapper">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="alc" value="other" id="otherCheckbox">
+                            <span class="custom-checkbox"></span>
+                            Другое
+                        </label>
+                        <input type="text" id="otherInput" class="other-input" placeholder="Укажите ваш вариант">
+                    </div>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="alc" value="none">
+                        <span class="custom-checkbox"></span>
+                        Не пью алкоголь
+                    </label>
+                </div>
+            </div>
+            
+            <div class="button-center">
+                <button class="btn-submit" onclick="saveGuestResponse()">Подтвердить</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/form.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function() {
+            emailjs.init("IDr4WiZYciMkmV9Dw");
+        })();
+    </script>
+</body>
+</html>

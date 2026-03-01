@@ -160,76 +160,81 @@
             <h2 class="section-title text-center">Анкета гостя</h2>
             <div class="rsvp">
                 <p class="rsvp-deadline">
-                    Пожалуйста, подтвердите своё присутствие на мероприятии до 9 марта 2026
+                    Пожалуйста, подтвердите своё присутствие на мероприятии до:
                 </p>
-                
-                <div class="field">
-                    <label for="guestName">Ваше имя</label>
-                    <input type="text" id="guestName" placeholder="Имя и фамилия">
-                </div>
-                
-                <div class="field">
-                    <label>Планируете ли Вы присутствовать?</label>
-                    <div class="radio-vertical">
-                        <label class="radio-label">
-                            <input type="radio" name="attend" value="yes">
-                            <span class="custom-radio"></span>
-                            Да, с удовольствием
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="attend" value="no">
-                            <span class="custom-radio"></span>
-                            Не смогу
-                        </label>
+                <h2 class="venue-title text-center">9 марта 2026</h2>
+                <div class="rsvp desktop-only">
+                    <div class="field">
+                        <label for="guestName">Ваше имя</label>
+                        <input type="text" id="guestName" placeholder="Имя и фамилия">
                     </div>
-                </div>
-
-                <div class="field">
-                    <label>Ваши предпочтения в напитках (можно выбрать несколько)</label>
-                    <div class="checkbox-vertical" id="alcoholChoice">
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="alc" value="champagne">
-                            <span class="custom-checkbox"></span>
-                            Шампанское
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="alc" value="white wine">
-                            <span class="custom-checkbox"></span>
-                            Белое вино
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="alc" value="red wine">
-                            <span class="custom-checkbox"></span>
-                            Красное вино
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="alc" value="vodka">
-                            <span class="custom-checkbox"></span>
-                            Водка
-                        </label>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="alc" value="whiskey">
-                            <span class="custom-checkbox"></span>
-                            Виски
-                        </label>
-                        <div class="other-wrapper">
-                            <label class="checkbox-label">
-                                <input type="checkbox" name="alc" value="other" id="otherCheckbox">
-                                <span class="custom-checkbox"></span>
-                                Другое
+                    
+                    <div class="field">
+                        <label>Планируете ли Вы присутствовать?</label>
+                        <div class="radio-vertical">
+                            <label class="radio-label">
+                                <input type="radio" name="attend" value="yes">
+                                <span class="custom-radio"></span>
+                                Да, с удовольствием
                             </label>
-                            <input type="text" id="otherInput" class="other-input" placeholder="Укажите ваш вариант">
+                            <label class="radio-label">
+                                <input type="radio" name="attend" value="no">
+                                <span class="custom-radio"></span>
+                                Не смогу
+                            </label>
                         </div>
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="alc" value="none">
-                            <span class="custom-checkbox"></span>
-                            Не пью алкоголь
-                        </label>
+                    </div>
+
+                    <div class="field">
+                        <label>Ваши предпочтения в напитках (можно выбрать несколько)</label>
+                        <div class="checkbox-vertical" id="alcoholChoice">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="alc" value="champagne">
+                                <span class="custom-checkbox"></span>
+                                Шампанское
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="alc" value="white wine">
+                                <span class="custom-checkbox"></span>
+                                Белое вино
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="alc" value="red wine">
+                                <span class="custom-checkbox"></span>
+                                Красное вино
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="alc" value="vodka">
+                                <span class="custom-checkbox"></span>
+                                Водка
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="alc" value="whiskey">
+                                <span class="custom-checkbox"></span>
+                                Виски
+                            </label>
+                            <div class="other-wrapper">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="alc" value="other" id="otherCheckbox">
+                                    <span class="custom-checkbox"></span>
+                                    Другое
+                                </label>
+                                <input type="text" id="otherInput" class="other-input" placeholder="Укажите ваш вариант">
+                            </div>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="alc" value="none">
+                                <span class="custom-checkbox"></span>
+                                Не пью алкоголь
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="button-center">
+                        <button class="btn-submit" onclick="saveGuestResponse()">Подтвердить</button>
                     </div>
                 </div>
-                
-                <div class="button-center">
-                    <button class="btn-submit" onclick="saveGuestResponse()">Подтвердить</button>
+                <div class="mobile-only">
+                    <a href="rsvp.html" class="btn mobile-rsvp-link">Подтвердить</a>
                 </div>
             </div>
         </div>
@@ -287,5 +292,6 @@
             emailjs.init("IDr4WiZYciMkmV9Dw"); // Замените на ваш публичный ключ
         })();
     </script>
+    <a href="rsvp.html" class="mobile-rsvp-btn">Подтвердить присутствие</a>
 </body>
 </html>

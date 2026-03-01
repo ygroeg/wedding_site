@@ -586,8 +586,8 @@ p {
 }
 
 .dot {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     border: 3px solid white;
 }
@@ -809,5 +809,65 @@ p {
     
     .label {
         order: 1;
+        max-width: 50px;
+    }
+}
+/* Добавьте в style.css */
+
+/* Плавающая кнопка для мобильных */
+.mobile-rsvp-btn {
+    display: none; /* скрыта по умолчанию */
+    position: fixed; 
+    z-index: 9999;
+    background: var(--primary);
+    color: white; 
+    border-radius: 0px;
+    text-decoration: none;
+    font-size: var(--text-base);
+    font-weight: 500; 
+    border: 0px solid white;
+    transition: all 0.2s;
+    text-align: center;
+    width: 100%;
+} 
+
+/* Показываем только на мобильных */
+@media (max-width: 768px) {
+    .mobile-rsvp-btn {
+        display: block;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    .mobile-rsvp-btn {
+        bottom: 0px; 
+        padding: 14px 20px;  
+    }
+}
+/* Показывать/скрывать в зависимости от устройства */
+.desktop-only {
+    display: block;
+}
+
+.mobile-only {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none;
+    }
+    
+    .mobile-only {
+        display: block;
+    }
+    
+    .mobile-rsvp-link {
+        width: 100%;
+        max-width: 300px;
+        margin: 30px auto;
+        font-size: 1.2rem;
+        padding: 18px 30px;
     }
 }

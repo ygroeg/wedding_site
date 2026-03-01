@@ -118,7 +118,7 @@ h1 {
 }
 
 h2 {
-    font-size: clamp(var(--text-xl), 6vw, var(--text-2xl));
+    font-size: clamp(var(--text-xl), 8vw, var(--text-3xl));
     font-weight: 600;
     margin-bottom: var(--spacing-lg);
     line-height: 1.2;
@@ -210,7 +210,7 @@ p {
 /* Календарь */
 .may-calendar-flat {
     background: var(--bg);
-    padding: var(--spacing-md);
+    padding: var(--spacing-lg); /* Увеличили внутренние отступы */
     display: inline-block;
     width: 100%;
     max-width: var(--calendar-max);
@@ -229,16 +229,18 @@ p {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     font-weight: 600;
-    margin-bottom: var(--spacing-sm);
-    font-size: var(--text-xs);
+    margin-bottom: var(--spacing-sm); /* Увеличили отступ снизу */
+    font-size: var(--text-base); /* Увеличили размер шрифта */
     text-align: center;
-    padding: 0 4px;
+    padding: 0 var(--spacing-xs);
+    gap: 0px 18px; /* Увеличили отступы: 8px между неделями, 8px между днями */
 }
 
 .cal-days-flat {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 0px 4px;
+    gap: 18px 18px; /* Увеличили отступы: 8px между неделями, 8px между днями */
+    padding: var(--spacing-xs); /* Добавили небольшой внутренний отступ */
 }
 
 .cal-days-flat span {
@@ -247,8 +249,11 @@ p {
     align-items: center;
     justify-content: center;
     background: var(--bg);
-    font-size: var(--text-base);
+    font-size: var(--text-lg); /* Увеличили размер цифр */
+    font-weight: 500; /* Добавили небольшую жирность */
     position: relative;
+    border-radius: 4px; /* Добавили скругление для красоты */
+    transition: background-color 0.2s;
 }
 
 .cal-days-flat span.heart-day {
@@ -257,7 +262,7 @@ p {
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" opacity="1.0"><path fill="%23d40100" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 80% 80%;
+    background-size: 120% 120%; 
 }
 
 /* Тайминг */
@@ -722,6 +727,13 @@ p {
     
     .contact-phone {
         font-size: var(--text-xl);
+    }
+    .cal-days-flat {
+        gap: 12px 8px; /* Еще больше отступы на мобильных */
+    }
+    
+    .cal-days-flat span {
+        font-size: var(--text-xl); /* Еще крупнее цифры на мобильных */
     }
 }
 

@@ -1,4 +1,4 @@
-﻿// Обработка формы с "Другое" полем
+﻿// Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     const otherCheckbox = document.getElementById('otherCheckbox');
     const otherInput = document.getElementById('otherInput');
@@ -17,13 +17,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Проверяем, нужно ли прокрутить к анкете
     if (window.location.hash === '#rsvp') {
-        setTimeout(scrollToRsvp, 500); // Небольшая задержка для загрузки страницы
+        setTimeout(scrollToRsvp, 500);
     }
 });
 
 // Функция прокрутки к анкете
 window.scrollToRsvp = function() {
-    const rsvpSection = document.querySelector('.slide:has(.rsvp)');
+    const rsvpSection = document.getElementById('rsvp-section');
     if (rsvpSection) {
         rsvpSection.scrollIntoView({ behavior: 'smooth' });
     }
@@ -78,11 +78,24 @@ window.saveGuestResponse = function() {
         return;
     }
 
+    // Форматируем напитки для красивого отображения
+    const formattedAlcohol = alcoholPreferences.map(drink => {
+        const drinkMap = {
+            'champagne': '🍾 Шампанское',
+            'white wine': '🥂 Белое вино',
+            'red wine': '🍷 Красное вино',
+            'vodka': '🥃 Водка',
+            'whiskey': '🥃 Виски',
+            'none': '🚫 Не пью алкоголь'
+        };
+        return drinkMap[drink] || drink;
+    }).join(', ');
+
     // Создаем объект с данными
     const guestData = {
         name: name,
-        attend: attend,
-        alcohol: alcoholPreferences,
+        attend: attend === 'yes' ? '✅ Да, с удовольствием' : '❌ Не смогу',
+        alcohol: formattedAlcohol || 'Не указано',
         timestamp: new Date().toLocaleString('ru-RU')
     };
     
@@ -92,6 +105,44 @@ window.saveGuestResponse = function() {
     guests.push(guestData);
     localStorage.setItem('weddingGuests', JSON.stringify(guests));
     
-    // Перенаправляем на страницу благодарности
-    window.location.href = 'thankyou.html';
+    // Отправка через EmailJS
+    sendEmail(guestData);
 };
+
+// Функция отправки email
+function sendEmail(guestData) {
+    // Показываем индикатор загрузки (можно заменить на красивый loader)
+    const submitBtn = document.querySelector('.btn-submit');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Отправка...';
+    submitBtn.disabled = true;
+    
+    // Параметры для шаблона EmailJS
+    const templateParams = {
+        guest_name: guestData.name,
+        attendance: guestData.attend,
+        drinks: guestData.alcohol,
+        submission_time: guestData.timestamp,
+    };
+    
+    // Отправка
+    emailjs.send('service_8cwu7nd', 'template_o76mz18', templateParams)
+        .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            
+            // Перенаправляем на страницу благодарности
+            window.location.href = 'thankyou.html';
+        }, function(error) {
+            console.log('FAILED...', error);
+            
+            // Восстанавливаем кнопку
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            
+            // Показываем ошибку, но сохраняем в localStorage и перенаправляемы
+            alert('Не удалось отправить email, позвоните нам, номер указан в контактах. Мы свяжемся с вами!');
+            
+            // Всё равно перенаправляем на страницу благодарности
+            window.location.href = 'thankyou.html';
+        });
+}

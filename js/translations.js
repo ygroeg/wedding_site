@@ -62,8 +62,8 @@ const translations = {
     
     // Слайд 6 - Пожелания (слайдер)
     'wishes_title': 'Пожелания',
-    'wish_1': 'Будем очень признательны, если Вы воздержитесь от криков «Горько». Ведь поцелуй – это знак выражения чувств, и он не может быть по заказу.',
-    'wish_2': 'Мы с теплотой относимся к детям любого возраста. Но для свадьбы выбрали формат 18+.',
+    'wish_1': 'Мы с теплотой относимся к детям любого возраста. Но для свадьбы выбрали формат 18+.',
+    'wish_2': 'Будем очень признательны, если Вы воздержитесь от криков «Горько». Ведь поцелуй – это знак выражения чувств, и он не может быть по заказу.',
     'wish_3': 'Пожалуйста, не дарите нам цветы! Мы не успеем насладиться их красотой и ароматом. Если хотите подарить нам ценный и нужный подарок, мы будем очень благодарны за вклад в бюджет нашей молодой семьи.',
     
     // Слайд 7 - Анкета
@@ -170,8 +170,8 @@ const translations = {
     
     // Slide 6 - Desideri (slider)
     'wishes_title': 'Desideri',
-    'wish_1': 'Saremo molto grati se eviterete di gridare "Gorko" (Amaro). Il bacio è un\'espressione di sentimenti e non può essere su ordinazione.',
-    'wish_2': 'Amiamo i bambini di tutte le età. Ma per il matrimonio abbiamo scelto il formato 18+.',
+    'wish_1': 'Amiamo i bambini di tutte le età. Ma per il matrimonio abbiamo scelto il formato 18+.',
+    'wish_2': 'Saremo molto grati se eviterete di gridare "Gorko" (Amaro). Il bacio è un\'espressione di sentimenti e non può essere su ordinazione.',
     'wish_3': 'Per favore, non regalateci fiori! Non faremo in tempo a godere della loro bellezza e fragranza. Se volete farci un regalo prezioso e utile, saremo molto grati per un contributo al budget della nostra giovane famiglia.',
     
     // Slide 7 - Questionario

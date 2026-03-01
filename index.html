@@ -78,16 +78,17 @@
                 </div>
                 <div class="venue-info">
                     <h2 class="venue-title">Место банкета</h2>
-                    <div class="polaroid-frame venue-polaroid">
+                    <p class="venue-name">Место проведения будет уточнено позже.</p>
+                <!-- <div class="polaroid-frame venue-polaroid">
                         <img src="src/mircuccio.JPG" alt="Ресторан «Mircuccio Osteria»" class="venue-img">
                     </div> 
                     <p class="venue-name">Ресторан «Mircuccio Osteria»</p>
                     <p class="venue-address">ул. Моисеенко, 27, Санкт-Петербург</p>
-                    <a href="https://yandex.ru/maps/-/CPqmbY3a" target="_blank" class="btn">Открыть карту</a>
+                    <a href="https://yandex.ru/maps/-/CPqmbY3a" target="_blank" class="btn">Открыть карту</a> -->
                 </div>
             </div>
         </div>
-        <div class="wave-bottom wave-steep wave-complex">
+        <div class="wave-bottom wave-steep wave-complex"></div>
     </section>
 
     <!-- 4. Тайминг -->
@@ -109,7 +110,7 @@
                 </div>
             </div>
         </div>
-        <div class="wave-bottom wave-rare">
+        <div class="wave-bottom wave-rare"></div>
     </section>
 
     <!-- 5. Дресс-код -->
@@ -117,23 +118,28 @@
         <div class="content text-center">
             <h2 class="section-title">Дресс-код</h2> 
             <div class="color-dots">
-                <div class="dot dot1"></div>
-                <div class="dot dot2"></div>
-                <div class="dot dot3"></div>
-                <div class="dot dot4"></div>
-                <div class="dot dot5"></div>
+                <div class="dot dot2" data-color="Пыльная роза"></div>
+                <div class="dot dot7" data-color="Глубокая роза"></div>
+                <div class="dot dot8" data-color="Винный (приглушённый)"></div>
+                <div class="dot dot4" data-color="Светло-серый"></div>
+                <div class="dot dot3" data-color="Дымчато-голубой"></div>
+                <div class="dot dot5" data-color="Глубокий синий"></div>
+                <div class="dot dot1" data-color="Шалфей"></div>
+                <div class="dot dot6" data-color="Тёмный оливковый"></div>
+                <div class="dot dot9" data-color="Графит"></div>
             </div>
             <p class="dresscode-text preserve-whitespace">
 Будем рады видеть вас в элегантных образах в весенней палитре:
 шалфей, пыльная роза, дымчато-голубой, светло-серый и глубокий синий.
 
-Допустимы аккуратные акценты:
-приглушённый винный, серебристые детали, сатин и лёгкий блеск, природные оттенки в аксессуарах.
+Допустимы как мягкие, так и более насыщённые вариации этих оттенков.
+
+Приветствуются серебристые акценты и лёгкий деликатный блеск.
 
 Просим по возможности избегать оттенков белого, слишком ярких и неоновых цветов, а также образов в стиле total black.
             </p>
         </div>
-        <div class="wave-bottom wave-complex">
+        <div class="wave-bottom wave-complex"></div>
     </section>
 
     <!-- 7. Слайдер пожеланий -->
@@ -151,7 +157,7 @@
                 <button class="slider-btn slider-right" onclick="nextWish()">→</button>
             </div>
         </div>
-        <div class="wave-bottom wave-frequent">
+        <div class="wave-bottom wave-frequent"></div>
     </section>
 
     <!-- 8. Анкета -->
@@ -163,6 +169,8 @@
                     Пожалуйста, подтвердите своё присутствие на мероприятии до:
                 </p>
                 <h2 class="venue-title text-center">9 марта 2026</h2>
+                
+                <!-- Десктопная версия -->
                 <div class="rsvp desktop-only">
                     <div class="field">
                         <label for="guestName">Ваше имя</label>
@@ -233,12 +241,14 @@
                         <button class="btn-submit" onclick="saveGuestResponse()">Подтвердить</button>
                     </div>
                 </div>
+                
+                <!-- Мобильная версия -->
                 <div class="mobile-only">
                     <a href="rsvp.html" class="btn mobile-rsvp-link">Подтвердить</a>
                 </div>
             </div>
         </div>
-        <div class="wave-bottom wave-steep wave-overlay">
+        <div class="wave-bottom wave-steep wave-overlay"></div>
     </section>
 
     <!-- 9. Контакты -->
@@ -253,10 +263,10 @@
                 </a>
             </div>
         </div>
-        <div class="wave-bottom wave-rare wave-bold">
+        <div class="wave-bottom wave-rare wave-bold"></div>
     </section>
 
-    <!-- В последнем слайде (10. Скорой встречи с Polaroid фото) -->
+    <!-- 10. Скорой встречи с Polaroid фото -->
     <section class="slide">
         <div class="content text-center">
             <h2 class="farewell-title">
@@ -284,14 +294,16 @@
     <script src="js/form.js"></script>
     <script src="js/waves.js"></script>
     <script src="js/main.js"></script>
-
+    
     <!-- EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            emailjs.init("IDr4WiZYciMkmV9Dw"); // Замените на ваш публичный ключ
+            emailjs.init("IDr4WiZYciMkmV9Dw");
         })();
     </script>
+    
+    <!-- Плавающая кнопка для мобильных -->
     <a href="rsvp.html" class="mobile-rsvp-btn">Подтвердить присутствие</a>
 </body>
 </html>

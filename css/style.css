@@ -590,13 +590,43 @@ p {
     height: 80px;
     border-radius: 50%;
     border: 3px solid white;
+    position: relative;
+    cursor: help; /* меняем курсор на вопросик */
 }
 
+/* Стили для всплывающей подсказки */
+.dot:hover::after {
+    content: attr(data-color);
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 100;
+    pointer-events: none;
+}
+
+/* Для мобильных устройств лучше убрать tooltips */
+@media (max-width: 768px) {
+    .dot:hover::after {
+        display: none;
+    }
+}
 .dot1 { background: #A3B7A2; }
 .dot2 { background: #C58C8C; }
 .dot3 { background: #8FA8C2; }
 .dot4 { background: #D6D6D6; }
 .dot5 { background: #2F3E5C; }
+.dot6 { background: #6E7F6D; }
+.dot7 { background: #9C5C63; }
+.dot8 { background: #6B2E3D; }
+.dot9 { background: #4A4A4A; }
+.dot10 { background: #1F2A44; }
 
 /* Утилиты */
 .preserve-whitespace {

@@ -69,7 +69,7 @@ const translations = {
     // Слайд 7 - Анкета
     'rsvp_title': 'Анкета гостя',
     'rsvp_deadline_text': 'Пожалуйста, подтвердите своё присутствие на мероприятии до:',
-    'rsvp_deadline_date': '9 марта 2026',
+    'rsvp_deadline_date': '15 марта 2026',
     'guest_name_label': 'Ваше имя',
     'guest_name_placeholder': 'Имя и фамилия',
     'attend_label': 'Планируете ли Вы присутствовать?',
@@ -177,7 +177,7 @@ const translations = {
     // Slide 7 - Questionario
     'rsvp_title': 'Questionario ospite',
     'rsvp_deadline_text': 'Confermare la vostra presenza entro:',
-    'rsvp_deadline_date': '9 marzo 2026',
+    'rsvp_deadline_date': '15 marzo 2026',
     'guest_name_label': 'Il vostro nome',
     'guest_name_placeholder': 'Nome e cognome',
     'attend_label': 'Pensate di partecipare?',
